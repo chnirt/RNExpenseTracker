@@ -1,4 +1,10 @@
-import {PixelRatio, Dimensions, StyleSheet} from 'react-native';
+import {
+  PixelRatio,
+  Dimensions,
+  StyleSheet,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 
 const ratio = PixelRatio.get();
 
@@ -39,9 +45,9 @@ export const normalize = (size: number) => {
 
   return size;
 };
-
+// <{}>(styles: {} | StyleSheet.NamedStyles<{}>): {}
 export const create = (
-  styles,
+  styles: {} | StyleSheet.NamedStyles<{}>,
   targetProperties = [
     'fontSize',
     'margin',
@@ -52,7 +58,7 @@ export const create = (
     'paddingHorizontal',
     'height',
   ],
-) => {
+): {} => {
   const normalizedStyles = {};
   Object.keys(styles).forEach((key) => {
     normalizedStyles[key] = {};
