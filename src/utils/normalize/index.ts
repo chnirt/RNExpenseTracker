@@ -40,7 +40,11 @@ export const normalize = (size: number) => {
   return size;
 };
 
-export const create = <T>(styles: T | StyleSheet.NamedStyles<T>) => {
+export const create = <
+  T extends StyleSheet.NamedStyles<T> | StyleSheet.NamedStyles<any>
+>(
+  styles: T | StyleSheet.NamedStyles<T>,
+): T => {
   const targetProperties = [
     'fontSize',
     'margin',
@@ -55,13 +59,12 @@ export const create = <T>(styles: T | StyleSheet.NamedStyles<T>) => {
   const normalizedStyles = {};
   Object.keys(styles).forEach((key) => {
     normalizedStyles[key] = {};
-    Object.keys(styles[key]).forEach((property) => {
-      if (targetProperties.includes(property)) {
-        normalizedStyles[key][property] = normalize(styles[key][property]);
-      } else {
-        normalizedStyles[key][property] = styles[key][property];
-      }
-    });
+    Object.keys(styles[key]).forEach(
+      (property) =>
+        (normalizedStyles[key][property] = targetProperties.includes(property)
+          ? normalize(styles[key][property])
+          : styles[key][property]),
+    );
   });
 
   return StyleSheet.create(normalizedStyles);
