@@ -2,7 +2,14 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import {LOGIN, REGISTER, MY_TABS, APP, TRANSACTIONS} from '../constants';
+import {
+  LOGIN,
+  REGISTER,
+  MY_TABS,
+  APP,
+  MULTITASKING,
+  TRANSACTIONS,
+} from '../constants';
 import {
   LoginScreen,
   RegisterScreen,
@@ -15,10 +22,15 @@ import {MyTabBar} from '../components';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const MultitaskingButton = () => {
+  return null;
+};
+
 function MyTabs() {
   return (
     <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
       <Tab.Screen name={APP} component={AppScreen} />
+      <Tab.Screen name={MULTITASKING} component={MultitaskingButton} />
       <Tab.Screen name={TRANSACTIONS} component={TransactionsScreen} />
     </Tab.Navigator>
   );

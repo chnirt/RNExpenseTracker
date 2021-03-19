@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Pressable} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {IMyTabBar} from './types';
+import {IMyTabBar, ITabIcon} from './types';
 import {styles} from './styles';
 import {DISABLED_COLOR, ICON_SIZE, PRIMARY_COLOR} from '../../constants';
 import {
@@ -11,19 +11,20 @@ import {
   TransactionFillSVG,
   TransactionSVG,
 } from '../../assets/svgs';
+import {MyMultitaskingButton} from '../MyMultitaskingButton';
 
 export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
   return (
     <SafeAreaView style={styles.safeView} edges={['bottom']}>
       <View style={styles.bottomTabContainer}>
-        {state.routes.map((route, index) => {
+        {state.routes.map((route, index: number) => {
           const {options} = descriptors[route.key];
-          const label =
-            options.tabBarLabel !== undefined
-              ? options.tabBarLabel
-              : options.title !== undefined
-              ? options.title
-              : route.name;
+          // const label =
+          //   options.tabBarLabel !== undefined
+          //     ? options.tabBarLabel
+          //     : options.title !== undefined
+          //     ? options.title
+          //     : route.name;
 
           const isFocused = state.index === index;
 
@@ -46,7 +47,7 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
             });
           };
 
-          const renderTabIcon = ({index, isFocused, color}) => {
+          const renderTabIcon = ({index, isFocused, color}: ITabIcon) => {
             switch (index) {
               case 0:
                 return isFocused ? (
@@ -59,6 +60,10 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
                   <CardSVG fill={color} width={ICON_SIZE} height={ICON_SIZE} />
                 );
               case 1:
+                return (
+                  <MyMultitaskingButton isFocused={isFocused} fill={color} />
+                );
+              case 2:
                 return isFocused ? (
                   <TransactionFillSVG
                     fill={color}
@@ -72,16 +77,6 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
                     height={ICON_SIZE}
                   />
                 );
-              case 2:
-              // return (
-              // <View style={styles.iconContainer}>
-              //   <ClockSVG color="#FFFFFF" />
-              // </View>
-              // );
-              case 3:
-              // return isFocused ? <ActiveReportSVG /> : <ReportSVG />;
-              case 4:
-              // return isFocused ? <ActiveMoreSVG /> : <MoreSVG />;
               default:
                 return null;
             }
