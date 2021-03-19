@@ -7,13 +7,10 @@ export const styles = create({
   },
   bottomTabContainer: {
     flexDirection: 'row',
-    height: 64,
     alignItems: 'center',
   },
   bottomTabButton: {
-    // flex: 1,
-    // alignItems: 'center',
+    height: 64,
     backgroundColor: 'green',
-    // backgroundColor: 'red',
   },
 });
