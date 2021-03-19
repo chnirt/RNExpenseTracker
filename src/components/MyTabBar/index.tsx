@@ -60,9 +60,7 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
                   <CardSVG fill={color} width={ICON_SIZE} height={ICON_SIZE} />
                 );
               case 1:
-                return (
-                  <MyMultitaskingButton isFocused={isFocused} fill={color} />
-                );
+                return <MyMultitaskingButton fill={PRIMARY_COLOR} />;
               case 2:
                 return isFocused ? (
                   <TransactionFillSVG
