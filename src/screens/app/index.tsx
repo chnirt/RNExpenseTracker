@@ -10,11 +10,7 @@ export function AppScreen(props: IAppScreen) {
   const navigation = useNavigation();
   const {logout} = useAuth();
 
-  useEffect(() => {
-    navigation.setOptions({
-      title: '',
-    });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <View style={styles.container}>

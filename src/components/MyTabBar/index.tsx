@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Pressable} from 'react-native';
+import {View, Pressable} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {IMyTabBar, ITabIcon} from './types';
@@ -95,6 +95,9 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
                 isFocused,
                 color: isFocused ? PRIMARY_COLOR : DISABLED_COLOR,
               })}
+              {/* <Text style={{color: isFocused ? '#673ab7' : '#222'}}>
+                {label}
+              </Text> */}
             </Pressable>
           );
         })}

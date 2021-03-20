@@ -9,12 +9,16 @@ import {
   APP,
   MULTITASKING,
   TRANSACTIONS,
+  CATEGORIES,
+  EXPENSE,
 } from '../constants';
 import {
   LoginScreen,
   RegisterScreen,
   AppScreen,
   TransactionsScreen,
+  CategoriesScreen,
+  ExpenseScreen,
 } from '../screens';
 import {useAuth} from '../context';
 import {MyTabBar} from '../components';
@@ -55,6 +59,8 @@ export function AppStack() {
       ) : (
         <>
           <Stack.Screen name={MY_TABS} component={MyTabs} />
+          <Stack.Screen name={CATEGORIES} component={CategoriesScreen} />
+          <Stack.Screen name={EXPENSE} component={ExpenseScreen} />
         </>
       )}
     </Stack.Navigator>

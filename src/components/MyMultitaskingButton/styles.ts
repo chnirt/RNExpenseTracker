@@ -24,9 +24,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    width: BOTTOM_BUTTON_HEIGHT / 2,
-    height: BOTTOM_BUTTON_HEIGHT / 2,
-    borderRadius: BOTTOM_BUTTON_HEIGHT / 4,
+    width: BOTTOM_BUTTON_HEIGHT * 0.5,
+    height: BOTTOM_BUTTON_HEIGHT * 0.5,
+    borderRadius: BOTTOM_BUTTON_HEIGHT * 0.25,
 
     backgroundColor: PRIMARY_COLOR,
     // borderColor: PRIMARY_COLOR,

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Svg, {SvgProps, Path} from 'react-native-svg';
 
-export function PlusSVG(props: SvgProps) {
-  const {fill = '#000', width = 24, height = 24} = props;
+export function CategorySVG(props: SvgProps) {
+  const {fill = '#000', width = 172, height = 172} = props;
   return (
     <Svg
       {...props}
@@ -10,7 +10,10 @@ export function PlusSVG(props: SvgProps) {
       width={width}
       height={height}
       viewBox="0 0 24 24">
-      <Path fill={fill} d="M24 10H14V0h-4v10H0v4h10v10h4V14h10z" />
+      <Path
+        fill={fill}
+        d="M11 11H0V0h11v11zm13 0H13V0h11v11zM11 24H0V13h11v11zm13 0H13V13h11v11z"
+      />
     </Svg>
   );
 }
