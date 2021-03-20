@@ -4,6 +4,8 @@ import {useNavigation} from '@react-navigation/core';
 
 import {ILoadingScreen} from './types';
 import {styles} from './styles';
+import {LogoSVG} from '../../assets/logo';
+import {LOGO_SIZE} from '../../constants';
 
 export function LoadingScreen(props: ILoadingScreen) {
   const navigation = useNavigation();
@@ -16,7 +18,7 @@ export function LoadingScreen(props: ILoadingScreen) {
 
   return (
     <View style={styles.container}>
-      <Text>LoadingScreen</Text>
+      <LogoSVG fill="#FFFFFF" width={LOGO_SIZE} height={LOGO_SIZE} />
     </View>
   );
 }

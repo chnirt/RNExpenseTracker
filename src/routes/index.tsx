@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {useNavigation} from '@react-navigation/core';
 
 import {
   LOADING,
@@ -13,6 +12,8 @@ import {
   TRANSACTIONS,
   CATEGORIES,
   EXPENSE,
+  APP_STACK,
+  AUTH_STACK,
 } from '../constants';
 import {
   LoadingScreen,
@@ -37,14 +38,6 @@ const MultitaskingButton = () => {
 };
 
 function MyTabs() {
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-    });
-  }, []);
-
   return (
     <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
       <Tab.Screen name={APP} component={AppScreen} />
@@ -63,6 +56,19 @@ function MyTabs() {
   );
 }
 
+const AppStackScreen = () => (
+  <AppStack.Navigator screenOptions={{headerShown: false}}>
+    <AppStack.Screen name={MY_TABS} component={MyTabs} />
+  </AppStack.Navigator>
+);
+
+const AuthStackScreen = () => (
+  <AuthStack.Navigator>
+    <AuthStack.Screen name={LOGIN} component={LoginScreen} />
+    <AuthStack.Screen name={REGISTER} component={RegisterScreen} />
+  </AuthStack.Navigator>
+);
+
 export function RootStackScreen() {
   const {initializing, isAuth} = useAuth();
 
@@ -72,26 +78,15 @@ export function RootStackScreen() {
         <RootStack.Screen name={LOADING} component={LoadingScreen} />
       ) : isAuth ? (
         <RootStack.Screen
-          name="AppStackScreen"
-          component={() => (
-            <AppStack.Navigator
-              initialRouteName={LOGIN}
-              mode="modal"
-              screenOptions={{animationEnabled: false}}>
-              <AppStack.Screen name={MY_TABS} component={MyTabs} />
-            </AppStack.Navigator>
-          )}
+          name={APP_STACK}
+          component={AppStackScreen}
           options={{headerShown: false}}
         />
       ) : (
         <RootStack.Screen
-          name="AuthStackScreen"
-          component={() => (
-            <AuthStack.Navigator>
-              <AuthStack.Screen name={LOGIN} component={LoginScreen} />
-              <AuthStack.Screen name={REGISTER} component={RegisterScreen} />
-            </AuthStack.Navigator>
-          )}
+          name={AUTH_STACK}
+          component={AuthStackScreen}
+          options={{headerShown: false}}
         />
       )}
       <RootStack.Screen

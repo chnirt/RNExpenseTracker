@@ -17,7 +17,7 @@ const AuthContext = createContext<IAuthContext>({
 
 export const AuthProvider = ({children}: IAuthProvider) => {
   const [initializing, setInitializing] = useState(true);
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(true);
   const {
     getItem: getToken,
     setItem: setToken,
@@ -44,7 +44,7 @@ export const AuthProvider = ({children}: IAuthProvider) => {
   useLayoutEffect(() => {
     setTimeout(() => {
       fetchToken();
-    }, 500);
+    }, 1000);
   }, []);
 
   return (

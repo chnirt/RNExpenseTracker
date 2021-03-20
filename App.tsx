@@ -12,8 +12,8 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {RootStackScreen} from './src/routes';
 import {AuthProvider} from './src/context';
+import {RootStackScreen} from './src/routes';
 
 const App = () => {
   return (
