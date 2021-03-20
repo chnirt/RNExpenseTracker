@@ -57,6 +57,7 @@ export const create = <
   ];
 
   const normalizedStyles = {};
+
   Object.keys(styles).forEach((key) => {
     normalizedStyles[key] = {};
     Object.keys(styles[key]).forEach(

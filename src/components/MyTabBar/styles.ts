@@ -1,19 +1,20 @@
 import {create} from '../../utils';
 import {BOTTOM_HEIGHT, PRIMARY_COLOR} from '../../constants';
+import {useShadow} from '../../hooks';
 
 export const styles = create({
   safeView: {
     backgroundColor: '#FFFFFF',
 
-    shadowColor: PRIMARY_COLOR,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.34,
-    shadowRadius: 6.27,
+    ...useShadow({deep: 10, color: PRIMARY_COLOR}),
 
-    elevation: 10,
+    // position: 'absolute',
+    // top: 0,
+    // right: 0,
+    // left: 0,
+    // bottom: 0,
+
+    // justifyContent: 'flex-end',
   },
   bottomTabContainer: {
     flexDirection: 'row',
