@@ -8,3 +8,5 @@ https://www.reactnativeschool.com/normalizing-text-and-spacing-between-screen-si
 ### See more:
 
 - Building an Animation Hook in React Native: reactnativeschool.com/building-an-animation-hook-in-react-native
+
+- App bars: top: https://material.io/components/app-bars-top#theming

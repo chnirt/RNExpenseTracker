@@ -1,5 +1,8 @@
-import {StyleSheet} from 'react-native';
+import {create} from '../../utils';
 
-export const styles = StyleSheet.create({
+export const styles = create({
+  headerLeftButton: {
+    paddingLeft: 16,
+  },
   container: {},
 });

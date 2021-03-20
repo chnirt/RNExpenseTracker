@@ -42,7 +42,9 @@ export const AuthProvider = ({children}: IAuthProvider) => {
   };
 
   useLayoutEffect(() => {
-    fetchToken();
+    setTimeout(() => {
+      fetchToken();
+    }, 500);
   }, []);
 
   return (

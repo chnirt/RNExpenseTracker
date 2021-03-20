@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, TextInput, Button} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 
@@ -8,18 +8,24 @@ import {useAuth} from '../../context';
 import {REGISTER} from '../../constants';
 
 export function LoginScreen(props: ILoginScreen) {
-  const navigaiton = useNavigation();
+  const navigation = useNavigation();
   const {login} = useAuth();
 
   const [email, setEmail] = useState('trinhchinchin@gmail.com');
   const [pwd, setPwd] = useState('12345678');
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
 
   const handleLogin = () => {
     const res = 1;
     res && login({}, email + pwd);
   };
 
-  const navigateRegister = () => navigaiton.navigate(REGISTER);
+  const navigateRegister = () => navigation.navigate(REGISTER);
 
   return (
     <View style={styles.container}>

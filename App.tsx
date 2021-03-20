@@ -12,14 +12,14 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {AppStack} from './src/routes';
+import {RootStackScreen} from './src/routes';
 import {AuthProvider} from './src/context';
 
 const App = () => {
   return (
     <NavigationContainer>
       <AuthProvider>
-        <AppStack />
+        <RootStackScreen />
       </AuthProvider>
     </NavigationContainer>
   );
