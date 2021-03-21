@@ -1,9 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {
-  BOTTOM_BUTTON_HEIGHT,
-  MINI_BOTTOM_BUTTON_HEIGHT,
-  PRIMARY_COLOR,
-} from '../../constants';
+import {BOTTOM_BUTTON_HEIGHT, PRIMARY_COLOR} from '../../constants';
 import {useShadow} from '../../hooks';
 
 export const styles = StyleSheet.create({

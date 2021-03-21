@@ -1,1 +1,1 @@
-export interface ISampleScreen {}
+export interface IMyButton {}

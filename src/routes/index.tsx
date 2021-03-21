@@ -73,7 +73,10 @@ export function RootStackScreen() {
   const {initializing, isAuth} = useAuth();
 
   return (
-    <RootStack.Navigator mode="modal" screenOptions={{animationEnabled: false}}>
+    <RootStack.Navigator
+      mode="modal"
+      screenOptions={{animationEnabled: false}}
+      initialRouteName={EXPENSE}>
       {initializing ? (
         <RootStack.Screen name={LOADING} component={LoadingScreen} />
       ) : isAuth ? (
