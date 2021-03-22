@@ -1,69 +1,32 @@
-import React, {useEffect} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {View, Text, Animated, StatusBar, Image} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
-import {ITransactionItem, ITransactionsScreen} from './types';
+import {ITransactionsScreen} from './types';
 import {styles} from './styles';
-import {CalendarSVG, TransactionFillSVG} from '../../assets/svgs';
+import {CalendarSVG} from '../../assets/svgs';
 import {PRIMARY_COLOR, ICON_SIZE} from '../../constants';
-import {MyCalendar} from '../../components/MyCalendar';
 import {useCalendar} from '../../context';
 
-const DATA = [
-  {
-    id: 'fusu-ssf223-fjjs',
+const SPACING = 20;
+const AVATAR_SIZE = 70;
+const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
+
+const DATA = [...Array(30).keys()].map((_, i) => {
+  return {
+    id: i.toString(),
     title: 'Mua xe',
     date: '15/05/2021',
     price: '603,1350,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj2',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj3',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj4',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj5',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj6',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj7',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj8',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-];
+  };
+});
 
 export function TransactionsScreen(props: ITransactionsScreen) {
   const navigation = useNavigation();
   const {toggle} = useCalendar();
+
+  const scrollY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     navigation.setOptions({
@@ -80,35 +43,70 @@ export function TransactionsScreen(props: ITransactionsScreen) {
     });
   }, []);
 
-  const TransactionItem = ({item}: ITransactionItem) => {
-    return (
-      <View style={styles.transactionItem}>
-        <View style={styles.leftSection}>
-          <TransactionFillSVG
-            fill={PRIMARY_COLOR}
-            width={ICON_SIZE}
-            height={ICON_SIZE}
-          />
-          <View style={styles.transactionInfo}>
-            <Text style={styles.transactionTitle}>{item.title}</Text>
-            <Text style={styles.transactionDate}>{item.date}</Text>
-          </View>
-        </View>
-        <View style={styles.rightSection}>
-          <Text style={styles.transactionPrice}>{item.price}</Text>
-        </View>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
-      <MyCalendar />
-      <FlatList
+      <Animated.FlatList
         data={DATA}
-        contentContainerStyle={styles.content}
-        renderItem={TransactionItem}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={{
+          padding: SPACING,
+          paddingTop: StatusBar.currentHeight || 42,
+        }}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: true},
+        )}
+        renderItem={({item, index}) => {
+          const scaleInputRange = [
+            -1,
+            0,
+            ITEM_SIZE * index,
+            ITEM_SIZE * (index + 2),
+          ];
+
+          const scale = scrollY.interpolate({
+            inputRange: scaleInputRange,
+            outputRange: [1, 1, 1, 0],
+          });
+
+          const opacityInputRange = [
+            -1,
+            0,
+            ITEM_SIZE * index,
+            ITEM_SIZE * (index + 1),
+          ];
+
+          const opacity = scrollY.interpolate({
+            inputRange: opacityInputRange,
+            outputRange: [1, 1, 1, 0],
+          });
+
+          return (
+            <Animated.View
+              style={[
+                {
+                  flexDirection: 'row',
+                  padding: SPACING,
+                  marginBottom: SPACING,
+                  backgroundColor: '#FFFFFF',
+                },
+                {opacity, transform: [{scale}]},
+              ]}>
+              <Image
+                source={{
+                  uri:
+                    'https://images.pexels.com/photos/2083188/pexels-photo-2083188.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+                }}
+                style={{
+                  width: AVATAR_SIZE,
+                  height: AVATAR_SIZE,
+                }}
+              />
+              <Text>{item.title}</Text>
+              <Text>{item.price}</Text>
+            </Animated.View>
+          );
+        }}
       />
     </View>
   );
