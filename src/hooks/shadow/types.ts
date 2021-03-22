@@ -1,6 +1,7 @@
 export interface IUseShadow {
   deep: number;
   color: string;
+  shadowOpacity?: number;
 }
 
 interface IShadowOffset {
