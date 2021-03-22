@@ -1,6 +1,6 @@
 import {IUseShadow, Shadow, ShadowOptions} from './types';
 
-export function useShadow({deep = 1, color = '#000'}: IUseShadow): Shadow {
+export function useShadow({deep = 1, color = '#000', shadowOpacity}: IUseShadow): Shadow {
   const shadowOptions: ShadowOptions = {
     1: {
       shadowOffset: {
@@ -196,5 +196,5 @@ export function useShadow({deep = 1, color = '#000'}: IUseShadow): Shadow {
     },
   };
 
-  return {shadowColor: color, ...shadowOptions[deep], elevation: deep};
+  return {shadowColor: color, ...shadowOptions[deep], elevation: deep, shadowOpacity};
 }
