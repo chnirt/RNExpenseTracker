@@ -87,6 +87,7 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
 
           return (
             <Pressable
+              key={index}
               accessibilityRole="button"
               accessibilityState={isFocused ? {selected: true} : {}}
               accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -100,7 +101,6 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
               onPressOut={onPressOut}
               style={styles.bottomTabButton}>
               <Animated.View
-                key={index}
                 style={[
                   styles.bottomTabButton,
                   isCenter && {transform: [{scale}]},
@@ -110,9 +110,7 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
                   isFocused,
                   color,
                 })}
-                {/* <Text style={{color}}>
-                {label}
-              </Text> */}
+                {/* <Text style={{color}}>{label}</Text> */}
               </Animated.View>
             </Pressable>
           );
