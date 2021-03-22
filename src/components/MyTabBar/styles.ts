@@ -16,9 +16,7 @@ export const styles = create({
     ...useShadow({deep: 10, color: PRIMARY_COLOR}),
   },
   bottomTabContainer: {
-    // flexDirection: 'row',
-    // backgroundColor: 'yellow',
-    // flex: 1,
+    flexDirection: 'row',
   },
   bottomTabButton: {
     height: BOTTOM_HEIGHT,

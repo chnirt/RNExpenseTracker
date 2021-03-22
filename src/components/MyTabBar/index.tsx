@@ -19,7 +19,7 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
     <SafeAreaView style={styles.safeView} edges={['bottom']}>
       <View style={styles.bottomTabContainer}>
         {state.routes.map((route, index: number) => {
-          const {scale, onPressIn, onPressOut} = useScale({from: 1, to: 0.5});
+          const {scale, onPressIn, onPressOut} = useScale({from: 1, to: 1.2});
 
           const {options} = descriptors[route.key];
           // const label =
@@ -30,6 +30,8 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
           //     : route.name;
 
           const isFocused = state.index === index;
+          const isCenter = index !== 1;
+          const color = isFocused ? PRIMARY_COLOR : DISABLED_COLOR;
 
           const onPress = () => {
             const event = navigation.emit({
@@ -84,30 +86,35 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
           };
 
           return (
-            <Animated.View
-              style={[styles.bottomTabButton, {transform: [{scale}]}]}>
-              <Pressable
+            <Pressable
+              accessibilityRole="button"
+              accessibilityState={isFocused ? {selected: true} : {}}
+              accessibilityLabel={options.tabBarAccessibilityLabel}
+              testID={options.tabBarTestID}
+              // onPress={onPress}
+              onLongPress={onLongPress}
+              onPressIn={() => {
+                onPressIn();
+                onPress();
+              }}
+              onPressOut={onPressOut}
+              style={styles.bottomTabButton}>
+              <Animated.View
                 key={index}
-                accessibilityRole="button"
-                accessibilityState={isFocused ? {selected: true} : {}}
-                accessibilityLabel={options.tabBarAccessibilityLabel}
-                testID={options.tabBarTestID}
-                onPress={onPress}
-                onLongPress={onLongPress}
-                onPressIn={onPressIn}
-                onPressOut={onPressOut}
-                // style={styles.bottomTabButton}
-              >
+                style={[
+                  styles.bottomTabButton,
+                  isCenter && {transform: [{scale}]},
+                ]}>
                 {renderTabIcon({
                   index,
                   isFocused,
-                  color: isFocused ? PRIMARY_COLOR : DISABLED_COLOR,
+                  color,
                 })}
-                {/* <Text style={{color: isFocused ? '#673ab7' : '#222'}}>
+                {/* <Text style={{color}}>
                 {label}
               </Text> */}
-              </Pressable>
-            </Animated.View>
+              </Animated.View>
+            </Pressable>
           );
         })}
       </View>

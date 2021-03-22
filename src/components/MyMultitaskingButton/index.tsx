@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Animated, View} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
