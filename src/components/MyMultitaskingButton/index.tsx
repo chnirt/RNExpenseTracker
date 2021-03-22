@@ -135,13 +135,16 @@ export function MyMultitaskingButton({fill}: IMyMultitaskingButton) {
           />
         </TouchableWithoutFeedback>
       </Animated.View>
+
       {/* <Animated.View
         style={{
           position: 'absolute',
           top: secondY,
           opacity,
         }}>
-        <TouchableWithoutFeedback onPress={() => {}} style={styles.miniButtonContainer}>
+        <TouchableWithoutFeedback
+          onPress={() => {}}
+          style={styles.miniButtonContainer}>
           <PlusSVG
             fill="#FFFFFF"
             width={ICON_SIZE / 2}
@@ -149,6 +152,7 @@ export function MyMultitaskingButton({fill}: IMyMultitaskingButton) {
           />
         </TouchableWithoutFeedback>
       </Animated.View> */}
+
       <Animated.View
         style={{
           position: 'absolute',
@@ -166,6 +170,7 @@ export function MyMultitaskingButton({fill}: IMyMultitaskingButton) {
           />
         </TouchableWithoutFeedback>
       </Animated.View>
+
       {/* <Animated.View
         style={{
           position: 'absolute',
@@ -180,6 +185,7 @@ export function MyMultitaskingButton({fill}: IMyMultitaskingButton) {
           />
         </TouchableWithoutFeedback>
       </Animated.View> */}
+
       {/* <Animated.View
         style={{
           position: 'absolute',

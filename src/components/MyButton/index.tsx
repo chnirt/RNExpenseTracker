@@ -1,17 +1,18 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 import {IMyButton} from './types';
 import {styles} from './styles';
 import {MyText} from '../MyText';
 
-export function MyButton(props: IMyButton) {
-  const {title, primary} = props;
+export function MyButton({children, onPress, primary}: IMyButton) {
   return (
-    <View style={[styles.container, primary && styles.primaryContainer]}>
+    <TouchableWithoutFeedback
+      style={[styles.container, primary && styles.primaryContainer]}
+      onPress={onPress}>
       <MyText button style={[styles.titleText, primary && styles.primaryColor]}>
-        {title}
+        {children}
       </MyText>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }

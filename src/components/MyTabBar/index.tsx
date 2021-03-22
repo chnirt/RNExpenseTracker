@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Pressable} from 'react-native';
+import {View, Pressable, Animated} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {IMyTabBar, ITabIcon} from './types';
@@ -12,12 +12,15 @@ import {
   TransactionSVG,
 } from '../../assets/svgs';
 import {MyMultitaskingButton} from '../MyMultitaskingButton';
+import {useScale} from '../../animations';
 
 export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
   return (
     <SafeAreaView style={styles.safeView} edges={['bottom']}>
       <View style={styles.bottomTabContainer}>
         {state.routes.map((route, index: number) => {
+          const {scale, onPressIn, onPressOut} = useScale({from: 1, to: 0.5});
+
           const {options} = descriptors[route.key];
           // const label =
           //   options.tabBarLabel !== undefined
@@ -81,24 +84,30 @@ export function MyTabBar({state, descriptors, navigation}: IMyTabBar) {
           };
 
           return (
-            <Pressable
-              key={index}
-              accessibilityRole="button"
-              accessibilityState={isFocused ? {selected: true} : {}}
-              accessibilityLabel={options.tabBarAccessibilityLabel}
-              testID={options.tabBarTestID}
-              onPress={onPress}
-              onLongPress={onLongPress}
-              style={styles.bottomTabButton}>
-              {renderTabIcon({
-                index,
-                isFocused,
-                color: isFocused ? PRIMARY_COLOR : DISABLED_COLOR,
-              })}
-              {/* <Text style={{color: isFocused ? '#673ab7' : '#222'}}>
+            <Animated.View
+              style={[styles.bottomTabButton, {transform: [{scale}]}]}>
+              <Pressable
+                key={index}
+                accessibilityRole="button"
+                accessibilityState={isFocused ? {selected: true} : {}}
+                accessibilityLabel={options.tabBarAccessibilityLabel}
+                testID={options.tabBarTestID}
+                onPress={onPress}
+                onLongPress={onLongPress}
+                onPressIn={onPressIn}
+                onPressOut={onPressOut}
+                // style={styles.bottomTabButton}
+              >
+                {renderTabIcon({
+                  index,
+                  isFocused,
+                  color: isFocused ? PRIMARY_COLOR : DISABLED_COLOR,
+                })}
+                {/* <Text style={{color: isFocused ? '#673ab7' : '#222'}}>
                 {label}
               </Text> */}
-            </Pressable>
+              </Pressable>
+            </Animated.View>
           );
         })}
       </View>

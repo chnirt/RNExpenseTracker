@@ -76,7 +76,8 @@ export function RootStackScreen() {
     <RootStack.Navigator
       mode="modal"
       screenOptions={{animationEnabled: false}}
-      initialRouteName={EXPENSE}>
+      // initialRouteName={EXPENSE}
+    >
       {initializing ? (
         <RootStack.Screen name={LOADING} component={LoadingScreen} />
       ) : isAuth ? (

@@ -13,6 +13,7 @@ export function ExpenseScreen(props: IExpenseScreen) {
   const navigation = useNavigation();
 
   const [date, setDate] = useState('123');
+  const [comment, setComment] = useState('s');
 
   useEffect(() => {
     navigation.setOptions({
@@ -34,8 +35,11 @@ export function ExpenseScreen(props: IExpenseScreen) {
   const goBack = () => navigation.goBack();
 
   const onPress = () => {
-    console.log('sad');
     setDate(Math.random().toString());
+  };
+
+  const handleAddTransaction = () => {
+    goBack();
   };
 
   return (
@@ -58,12 +62,15 @@ export function ExpenseScreen(props: IExpenseScreen) {
         <MyInput
           label="Category"
           maxLength={5}
-          value={date}
+          value={comment}
+          onChange={setComment}
           onPress={onPress}
         />
         <MyInput label="Comment" vertical placeholder="1234" />
       </View>
-      <MyButton title="Add Transaction" primary />
+      <MyButton onPress={handleAddTransaction} primary>
+        Add Transaction
+      </MyButton>
     </SafeAreaView>
   );
 }
