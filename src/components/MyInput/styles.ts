@@ -11,7 +11,10 @@ export const styles = create({
     justifyContent: 'space-between',
   },
   verticalInputContainer: {flexDirection: 'column'},
-  input: {},
+  input: {
+    fontSize: 16,
+    marginTop: 8,
+  },
   verticalInput: {},
   divider: {
     borderTopColor: THIRD_COLOR,

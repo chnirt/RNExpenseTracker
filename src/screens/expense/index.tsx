@@ -51,11 +51,17 @@ export function ExpenseScreen(props: IExpenseScreen) {
         <MyInput
           label="Money (VND)"
           placeholder="0"
+          maxLength={5}
           value={date}
           onPress={onPress}
         />
-        <MyInput label="Category" value={date} onPress={onPress} />
-        <MyInput label="Comment" vertical />
+        <MyInput
+          label="Category"
+          maxLength={5}
+          value={date}
+          onPress={onPress}
+        />
+        <MyInput label="Comment" vertical placeholder="1234" />
       </View>
       <MyButton title="Add Transaction" primary />
     </SafeAreaView>
