@@ -1,5 +1,5 @@
 export interface IUseShadow {
-  deep: number;
+  depth: number;
   color: string;
   shadowOpacity?: number;
 }

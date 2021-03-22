@@ -16,8 +16,8 @@ export const styles = create({
   },
   modalView: {
     backgroundColor: 'white',
-    height: 400,
+    paddingVertical: 16,
 
-    ...useShadow({deep: 10, color: PRIMARY_COLOR}),
+    ...useShadow({depth: 24, color: PRIMARY_COLOR}),
   },
 });

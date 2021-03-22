@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 import {ITransactionItem, ITransactionsScreen} from './types';
 import {styles} from './styles';
 import {TransactionFillSVG} from '../../assets/svgs';
 import {PRIMARY_COLOR, ICON_SIZE} from '../../constants';
 import {MyCalendar} from '../../components/MyCalendar';
+import {useCalendar} from '../../context';
 
-const DATA= [
+const DATA = [
   {
     id: 'fusu-ssf223-fjjs',
     title: 'Mua xe',
@@ -57,26 +59,28 @@ const DATA= [
     date: '15/05/2021',
     price: '2,222,250,000',
   },
-]
+];
 
 export function TransactionsScreen(props: ITransactionsScreen) {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
+  const {toggle} = useCalendar();
+
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: "Transaction",
+      headerTitle: 'Transaction',
       headerRight: () => (
-        <View style={styles.headerRight}>
-           <TransactionFillSVG
+        <TouchableWithoutFeedback style={styles.headerRight} onPress={toggle}>
+          <TransactionFillSVG
             fill={PRIMARY_COLOR}
             width={ICON_SIZE}
             height={ICON_SIZE}
           />
-          </View>
-      )
-    })
-  }, [])
+        </TouchableWithoutFeedback>
+      ),
+    });
+  }, []);
 
-  const TransactionItem = ({item}: ITransactionItem ) => {
+  const TransactionItem = ({item}: ITransactionItem) => {
     return (
       <View style={styles.transactionItem}>
         <View style={styles.leftSection}>
@@ -94,12 +98,12 @@ export function TransactionsScreen(props: ITransactionsScreen) {
           <Text style={styles.transactionPrice}>{item.price}</Text>
         </View>
       </View>
-    )
-  }
+    );
+  };
 
   return (
     <View style={styles.container}>
-      <MyCalendar/>
+      <MyCalendar />
       <FlatList
         data={DATA}
         contentContainerStyle={styles.content}

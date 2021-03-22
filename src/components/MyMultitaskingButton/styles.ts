@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     // borderColor: PRIMARY_COLOR,
     // borderWidth: 1,
 
-    ...useShadow({deep: 15, color: PRIMARY_COLOR}),
+    ...useShadow({depth: 15, color: PRIMARY_COLOR}),
   },
   miniButtonContainer: {
     alignItems: 'center',
@@ -28,6 +28,6 @@ export const styles = StyleSheet.create({
     // borderColor: PRIMARY_COLOR,
     // borderWidth: 1,
 
-    ...useShadow({deep: 15, color: PRIMARY_COLOR}),
+    ...useShadow({depth: 15, color: PRIMARY_COLOR}),
   },
 });

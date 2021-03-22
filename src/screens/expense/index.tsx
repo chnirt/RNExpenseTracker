@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {SafeAreaView} from 'react-native-safe-area-context';
+
 import {IExpenseScreen} from './types';
 import {styles} from './styles';
 import {CloseSVG} from '../../assets/svgs';
 import {ICON_SIZE, THIRD_COLOR} from '../../constants';
 import {MyInput, MyText, MyButton} from '../../components';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 export function ExpenseScreen(props: IExpenseScreen) {
   const navigation = useNavigation();

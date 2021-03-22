@@ -1,6 +1,6 @@
-import {create} from '../../utils'
-import { useShadow } from '../../hooks/shadow'
-import { PRIMARY_COLOR, INCOME_COLOR } from '../../constants';
+import {create} from '../../utils';
+import {useShadow} from '../../hooks/shadow';
+import {PRIMARY_COLOR, INCOME_COLOR} from '../../constants';
 
 export const styles = create({
   container: {
@@ -10,7 +10,7 @@ export const styles = create({
     paddingVertical: 10,
   },
   headerRight: {
-    marginHorizontal: 10,
+    paddingRight: 16,
   },
   transactionItem: {
     marginVertical: 7,
@@ -22,7 +22,8 @@ export const styles = create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    ...useShadow({deep: 5, color: PRIMARY_COLOR, shadowOpacity: 0.15}),
+
+    ...useShadow({depth: 5, color: PRIMARY_COLOR, shadowOpacity: 0.15}),
   },
   leftSection: {
     flexDirection: 'row',

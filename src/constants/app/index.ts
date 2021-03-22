@@ -1,4 +1,5 @@
 import {Dimensions} from 'react-native';
+
 import {normalize} from '../../utils';
 
 export const APP_NAME = 'CHNIRT_EXPENSE_TRACKER';

@@ -8,7 +8,7 @@ import {MyButton} from '../../components';
 
 export function AppScreen(props: IAppScreen) {
   const {logout} = useAuth();
-  const {toggle} = useCalendar();
+  const {calendarStart, calendarEnd, toggle} = useCalendar();
 
   useEffect(() => {}, []);
 
