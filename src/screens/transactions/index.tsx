@@ -1,63 +1,114 @@
 import React, {useEffect} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, SectionList} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 import {ITransactionItem, ITransactionsScreen} from './types';
 import {styles} from './styles';
 import {TransactionFillSVG} from '../../assets/svgs';
-import {PRIMARY_COLOR, ICON_SIZE} from '../../constants';
-import {MyCalendar} from '../../components/MyCalendar';
+import {PRIMARY_COLOR, ICON_SIZE, INCOME_COLOR, EXPENSE_COLOR} from '../../constants';
 import {useCalendar} from '../../context';
+import {MySeparator} from '../../components';
 
 const DATA = [
   {
-    id: 'fusu-ssf223-fjjs',
-    title: 'Mua xe',
     date: '15/05/2021',
-    price: '603,1350,000',
+    data: [
+      {
+        id: 'fusu-ssf223-fjj1',
+        title: 'Mua xe',
+        note: 'Toyota',
+        price: '603,1350,000',
+        status: 'income',
+      },
+      {
+        id: 'fusu-ssf223-fjj2',
+        title: 'Mua nha',
+        note: 'Level 4',
+        price: '2,222,250,000',
+        status: 'expense',
+      },
+      {
+        id: 'fusu-ssf223-fjj3',
+        title: 'Mua nha',
+        note: 'Level 4',
+        price: '2,222,250,000',
+        status: 'income',
+      },
+      {
+        id: 'fusu-ssf223-fjj4',
+        title: 'Mua nha',
+        note: 'Level 4',
+        price: '2,222,250,000',
+        status: 'expense',
+      },
+    ]
   },
   {
-    id: 'fusu-ssf223-fjj2',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
+    date: '16/05/2021',
+    data: [
+      {
+        id: 'fusu-ssf223-fjj5',
+        title: 'Mua xe',
+        note: 'Toyota',
+        price: '603,1350,000',
+        status: 'income',
+      },
+      {
+        id: 'fusu-ssf223-fjj6',
+        title: 'Mua nha',
+        note: 'Level 4',
+        price: '2,222,250,000',
+        status: 'expense',
+      },
+      {
+        id: 'fusu-ssf223-fjj7',
+        title: 'Mua nha',
+        note: 'Level 4',
+        price: '2,222,250,000',
+        status: 'income',
+      },
+      {
+        id: 'fusu-ssf223-fjj8',
+        title: 'Mua nha',
+        note: 'Level 4',
+        price: '2,222,250,000',
+        status: 'expense',
+      },
+    ]
   },
   {
-    id: 'fusu-ssf223-fjj3',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj4',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj5',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj6',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj7',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
-  },
-  {
-    id: 'fusu-ssf223-fjj8',
-    title: 'Mua nha',
-    date: '15/05/2021',
-    price: '2,222,250,000',
+    date: '17/05/2021',
+    data: [
+      {
+        id: 'fusu-ssf223-fjj9',
+        title: 'Mua xe',
+        note: 'Toyota',
+        price: '603,1350,000',
+        status: 'income',
+      },
+      {
+        id: 'fusu-ssf223-fjj10',
+        title: 'Mua nha',
+        note: 'Level 4',
+        price: '2,222,250,000',
+        status: 'expense',
+      },
+      {
+        id: 'fusu-ssf223-fjj11',
+        title: 'Mua nha',
+        note: 'Level 4',
+        price: '2,222,250,000',
+        status: 'income',
+      },
+      {
+        id: 'fusu-ssf223-fjj12',
+        title: 'Mua nha',
+        note: 'Level 4',
+        price: '2,222,250,000',
+        status: 'expense',
+      },
+    ]
   },
 ];
 
@@ -91,11 +142,13 @@ export function TransactionsScreen(props: ITransactionsScreen) {
           />
           <View style={styles.transactionInfo}>
             <Text style={styles.transactionTitle}>{item.title}</Text>
-            <Text style={styles.transactionDate}>{item.date}</Text>
+            <Text style={styles.transactionDate}>{item.note}</Text>
           </View>
         </View>
         <View style={styles.rightSection}>
-          <Text style={styles.transactionPrice}>{item.price}</Text>
+          <Text style={[styles.transactionPrice, {color: item.status === 'income' ? INCOME_COLOR : EXPENSE_COLOR}]}>
+            {item.price}
+          </Text>
         </View>
       </View>
     );
@@ -103,12 +156,20 @@ export function TransactionsScreen(props: ITransactionsScreen) {
 
   return (
     <View style={styles.container}>
-      <MyCalendar />
-      <FlatList
-        data={DATA}
+      <SectionList
         contentContainerStyle={styles.content}
-        renderItem={TransactionItem}
+        sections={DATA}
         keyExtractor={(item) => item.id}
+        renderItem={TransactionItem}
+        renderSectionHeader={({ section: { date } }) => (
+          <Text style={styles.transactionHeader}>{date}</Text>
+        )}
+        SectionSeparatorComponent={() => (
+          <MySeparator size={5} />
+        )}
+        renderSectionFooter={() => (
+          <MySeparator size={10} />
+        )}
       />
     </View>
   );

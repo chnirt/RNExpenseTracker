@@ -4,7 +4,8 @@ export interface ITransactionItem  {
     item: {
         id: string;
         title: string;
-        date: string;
+        note: string;
         price: string;
+        status: string;
     },
 }
