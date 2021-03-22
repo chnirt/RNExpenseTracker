@@ -5,7 +5,7 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 import {ITransactionItem, ITransactionsScreen} from './types';
 import {styles} from './styles';
-import {TransactionFillSVG} from '../../assets/svgs';
+import {CalendarSVG, TransactionFillSVG} from '../../assets/svgs';
 import {PRIMARY_COLOR, ICON_SIZE} from '../../constants';
 import {MyCalendar} from '../../components/MyCalendar';
 import {useCalendar} from '../../context';
@@ -70,10 +70,10 @@ export function TransactionsScreen(props: ITransactionsScreen) {
       headerTitle: 'Transaction',
       headerRight: () => (
         <TouchableWithoutFeedback style={styles.headerRight} onPress={toggle}>
-          <TransactionFillSVG
+          <CalendarSVG
             fill={PRIMARY_COLOR}
-            width={ICON_SIZE}
-            height={ICON_SIZE}
+            width={ICON_SIZE / 2}
+            height={ICON_SIZE / 2}
           />
         </TouchableWithoutFeedback>
       ),
