@@ -8,6 +8,7 @@ import {styles} from './styles';
 import {CalendarSVG} from '../../assets/svgs';
 import {PRIMARY_COLOR, ICON_SIZE} from '../../constants';
 import {useCalendar} from '../../context';
+import {MyText} from '../../components';
 
 const SPACING = 20;
 const AVATAR_SIZE = 70;
@@ -24,15 +25,17 @@ const DATA = [...Array(30).keys()].map((_, i) => {
 
 export function TransactionsScreen(props: ITransactionsScreen) {
   const navigation = useNavigation();
-  const {toggle} = useCalendar();
+  const {handleOpen} = useCalendar();
 
   const scrollY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: 'Transaction',
+      headerTitle: () => <MyText h6>Transaction</MyText>,
       headerRight: () => (
-        <TouchableWithoutFeedback style={styles.headerRight} onPress={toggle}>
+        <TouchableWithoutFeedback
+          style={styles.headerRight}
+          onPress={handleOpen}>
           <CalendarSVG
             fill={PRIMARY_COLOR}
             width={ICON_SIZE / 2}
@@ -56,6 +59,7 @@ export function TransactionsScreen(props: ITransactionsScreen) {
           [{nativeEvent: {contentOffset: {y: scrollY}}}],
           {useNativeDriver: true},
         )}
+        showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => {
           const scaleInputRange = [
             -1,

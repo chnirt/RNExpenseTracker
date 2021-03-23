@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {View, TextInput} from 'react-native';
 
 import {IMyInput} from './types';
@@ -17,6 +17,12 @@ export function MyInput(props: IMyInput) {
     horizontal = true,
     vertical = false,
   } = props;
+
+  const memoizedValue = useMemo(
+    () => (maxLength ? value.substring(0, maxLength) : value),
+    [maxLength, value],
+  );
+
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback
@@ -38,7 +44,7 @@ export function MyInput(props: IMyInput) {
           />
         ) : (
           <MyText h6 color={DISABLED_COLOR}>
-            {maxLength ? value.substring(0, maxLength) : value}
+            {memoizedValue}
           </MyText>
         )}
       </TouchableWithoutFeedback>

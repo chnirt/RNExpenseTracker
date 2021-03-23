@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -9,9 +9,12 @@ import {styles} from './styles';
 import {CloseSVG} from '../../assets/svgs';
 import {ICON_SIZE, THIRD_COLOR} from '../../constants';
 import {MyInput, MyText, MyButton} from '../../components';
+import {useCalendar, useNumberPad} from '../../context';
 
 export function ExpenseScreen(props: IExpenseScreen) {
   const navigation = useNavigation();
+  const {handleOpen: handleOpenCalendar} = useCalendar();
+  const {value: money, handleOpen: handleOpenNumberPad} = useNumberPad();
 
   const [date, setDate] = useState('123');
   const [comment, setComment] = useState('s');
@@ -51,14 +54,14 @@ export function ExpenseScreen(props: IExpenseScreen) {
           placeholder={new Date().toLocaleString()}
           maxLength={5}
           value={date}
-          onPress={onPress}
+          onPress={handleOpenCalendar}
         />
         <MyInput
           label="Money (VND)"
-          placeholder="0"
-          maxLength={5}
-          value={date}
-          onPress={onPress}
+          // placeholder=""
+          // maxLength={5}
+          value={money}
+          onPress={handleOpenNumberPad}
         />
         <MyInput
           label="Category"
