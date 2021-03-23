@@ -30,7 +30,7 @@ const DATA = [
 ];
 
 export const NumberPadProvider = ({children}: INumberPadProvider) => {
-  const [modalVisible, setModalVisible] = useState(!false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [value, setValue] = useState<string>('');
 
   const handleOpen = () => setModalVisible(true);

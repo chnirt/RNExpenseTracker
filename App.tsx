@@ -12,7 +12,12 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {AuthProvider, CalendarProvider, NumberPadProvider} from './src/context';
+import {
+  AuthProvider,
+  CalendarProvider,
+  CategoriesProvider,
+  NumberPadProvider,
+} from './src/context';
 import {RootStackScreen} from './src/routes';
 
 const App = () => {
@@ -21,7 +26,9 @@ const App = () => {
       <AuthProvider>
         <CalendarProvider>
           <NumberPadProvider>
-            <RootStackScreen />
+            <CategoriesProvider>
+              <RootStackScreen />
+            </CategoriesProvider>
           </NumberPadProvider>
         </CalendarProvider>
       </AuthProvider>

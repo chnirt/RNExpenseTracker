@@ -5,6 +5,9 @@ import {IAppScreen} from './types';
 import {styles} from './styles';
 import {useAuth} from '../../context';
 import {MyButton} from '../../components';
+import {useNavigation} from '@react-navigation/core';
+// import {useShadow} from '../../hooks';
+// import {PRIMARY_COLOR} from '../../constants';
 
 const DATA = [...Array(30).keys()].map((_, i) => ({
   id: i.toString(),
@@ -13,12 +16,19 @@ const DATA = [...Array(30).keys()].map((_, i) => ({
 
 export function AppScreen(props: IAppScreen) {
   const {logout} = useAuth();
+  const navigation = useNavigation();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    navigation.setOptions({
+      headerStyle: {
+        // ...useShadow({depth: 24, color: PRIMARY_COLOR}),
+      },
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
-      <FlatList
+      {/* <FlatList
         data={DATA}
         renderItem={({item, index}) => {
           return (
@@ -35,7 +45,7 @@ export function AppScreen(props: IAppScreen) {
         }}
         keyExtractor={(item) => item.id}
         stickyHeaderIndices={[1, 6, 13, 20]}
-      />
+      /> */}
       <MyButton onPress={logout} primary>
         Log out
       </MyButton>

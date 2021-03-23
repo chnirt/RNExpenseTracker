@@ -13,6 +13,7 @@ export function MyInput(props: IMyInput) {
     placeholder,
     maxLength,
     value,
+    onChangeText,
     onPress,
     horizontal = true,
     vertical = false,
@@ -41,6 +42,8 @@ export function MyInput(props: IMyInput) {
             placeholder={placeholder}
             textAlign={vertical ? 'left' : 'right'}
             maxLength={maxLength}
+            value={value}
+            onChangeText={onChangeText}
           />
         ) : (
           <MyText h6 color={DISABLED_COLOR}>

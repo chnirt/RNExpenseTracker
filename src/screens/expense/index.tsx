@@ -9,15 +9,17 @@ import {styles} from './styles';
 import {CloseSVG} from '../../assets/svgs';
 import {ICON_SIZE, THIRD_COLOR} from '../../constants';
 import {MyInput, MyText, MyButton} from '../../components';
-import {useCalendar, useNumberPad} from '../../context';
+import {useCalendar, useCategories, useNumberPad} from '../../context';
 
 export function ExpenseScreen(props: IExpenseScreen) {
   const navigation = useNavigation();
   const {handleOpen: handleOpenCalendar} = useCalendar();
   const {value: money, handleOpen: handleOpenNumberPad} = useNumberPad();
+  const {handleOpen: handleOpenCategories} = useCategories();
 
-  const [date, setDate] = useState('123');
-  const [comment, setComment] = useState('s');
+  const [date, setDate] = useState('');
+  const [category, setCategory] = useState('');
+  const [comment, setComment] = useState('');
 
   useEffect(() => {
     navigation.setOptions({
@@ -38,39 +40,31 @@ export function ExpenseScreen(props: IExpenseScreen) {
 
   const goBack = () => navigation.goBack();
 
-  const onPress = () => {
-    setDate(Math.random().toString());
-  };
-
   const handleAddTransaction = () => {
+    console.log(date, money, category, comment);
     goBack();
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.formContainer}>
-        <MyInput
-          label="Date"
-          placeholder={new Date().toLocaleString()}
-          maxLength={5}
-          value={date}
-          onPress={handleOpenCalendar}
-        />
+        <MyInput label="Date" value={date} onPress={handleOpenCalendar} />
         <MyInput
           label="Money (VND)"
-          // placeholder=""
-          // maxLength={5}
           value={money}
           onPress={handleOpenNumberPad}
         />
         <MyInput
           label="Category"
-          maxLength={5}
-          value={comment}
-          onChange={setComment}
-          onPress={onPress}
+          value={category}
+          onPress={handleOpenCategories}
         />
-        <MyInput label="Comment" vertical placeholder="1234" />
+        <MyInput
+          label="Comment"
+          value={comment}
+          onChangeText={setComment}
+          vertical
+        />
       </View>
       <MyButton onPress={handleAddTransaction} primary>
         Add Transaction
