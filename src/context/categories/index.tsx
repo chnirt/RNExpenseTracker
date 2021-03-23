@@ -17,7 +17,7 @@ const CategoriesContext = createContext<ICategoriesContext>({
 });
 
 export const CategoriesProvider = ({children}: ICategoriesProvider) => {
-  const [modalVisible, setModalVisible] = useState(!false);
+  const [modalVisible, setModalVisible] = useState(false);
   const [value, setValue] = useState('');
 
   const handleOpen = () => setModalVisible(true);

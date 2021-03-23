@@ -5,21 +5,28 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 import {ITransactionsScreen} from './types';
 import {styles} from './styles';
-import {CalendarSVG} from '../../assets/svgs';
-import {PRIMARY_COLOR, ICON_SIZE} from '../../constants';
+import {CalendarSVG, ExpenseSVG} from '../../assets/svgs';
+import {
+  PRIMARY_COLOR,
+  ICON_SIZE,
+  INCOME_COLOR,
+  EXPENSE_COLOR,
+} from '../../constants';
 import {useCalendar} from '../../context';
 import {MyText} from '../../components';
+import {useShadow} from '../../hooks';
+import {randomNumber} from '../../utils';
 
 const SPACING = 20;
-const AVATAR_SIZE = 70;
+const AVATAR_SIZE = 30;
 const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
 
 const DATA = [...Array(30).keys()].map((_, i) => {
   return {
     id: i.toString(),
-    title: 'Mua xe',
+    title: 'Buy car',
     date: '15/05/2021',
-    price: '603,1350,000',
+    price: randomNumber(-100000, 100000),
   };
 });
 
@@ -31,7 +38,7 @@ export function TransactionsScreen(props: ITransactionsScreen) {
 
   useEffect(() => {
     navigation.setOptions({
-      headerTitle: () => <MyText h6>Transaction</MyText>,
+      headerTitle: () => <MyText h6>Transactions</MyText>,
       headerRight: () => (
         <TouchableWithoutFeedback
           style={styles.headerRight}
@@ -61,6 +68,8 @@ export function TransactionsScreen(props: ITransactionsScreen) {
         )}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => {
+          const isPositive = item.price > 0;
+
           const scaleInputRange = [
             -1,
             0,
@@ -85,29 +94,56 @@ export function TransactionsScreen(props: ITransactionsScreen) {
             outputRange: [1, 1, 1, 0],
           });
 
+          const formatPrice = item.price.toLocaleString('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+          });
+
           return (
             <Animated.View
               style={[
                 {
                   flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
                   padding: SPACING,
                   marginBottom: SPACING,
                   backgroundColor: '#FFFFFF',
+
+                  ...useShadow({depth: 12, color: PRIMARY_COLOR}),
                 },
                 {opacity, transform: [{scale}]},
               ]}>
-              <Image
-                source={{
-                  uri:
-                    'https://images.pexels.com/photos/2083188/pexels-photo-2083188.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-                }}
+              <View
                 style={{
-                  width: AVATAR_SIZE,
-                  height: AVATAR_SIZE,
-                }}
-              />
-              <Text>{item.title}</Text>
-              <Text>{item.price}</Text>
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    width: AVATAR_SIZE,
+                    aspectRatio: 1,
+                    borderRadius: AVATAR_SIZE / 2,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+
+                    borderColor: PRIMARY_COLOR,
+                    borderWidth: 1,
+                  }}>
+                  <ExpenseSVG
+                    fill={PRIMARY_COLOR}
+                    width={ICON_SIZE * 0.75}
+                    height={ICON_SIZE * 0.75}
+                  />
+                </View>
+                <MyText style={{marginLeft: 16}} h6>
+                  {item.title}
+                </MyText>
+              </View>
+
+              <MyText h6 color={isPositive ? INCOME_COLOR : EXPENSE_COLOR}>
+                {formatPrice}
+              </MyText>
             </Animated.View>
           );
         }}
