@@ -4,6 +4,7 @@ export const AUTH_STACK = 'authStack';
 export const LOGIN = 'login';
 export const REGISTER = 'register';
 
+export const APP_DRAWER_STACK = 'appDrawer';
 export const APP_STACK = 'appStack';
 export const MY_TABS = 'myTabs';
 export const APP = 'app';

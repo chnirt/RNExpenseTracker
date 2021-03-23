@@ -1,6 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {
   LOADING,
@@ -12,6 +13,7 @@ import {
   TRANSACTIONS,
   CATEGORIES,
   EXPENSE,
+  APP_DRAWER_STACK,
   APP_STACK,
   AUTH_STACK,
 } from '../constants';
@@ -23,14 +25,15 @@ import {
   TransactionsScreen,
   CategoriesScreen,
   ExpenseScreen,
+  SettingsScreen,
 } from '../screens';
 import {useAuth} from '../context';
 import {MyTabBar} from '../components';
 
 const RootStack = createStackNavigator();
 const AuthStack = createStackNavigator();
+const AppDrawer = createDrawerNavigator();
 const AppStack = createStackNavigator();
-
 const Tab = createBottomTabNavigator();
 
 const MultitaskingButton = () => {
@@ -39,7 +42,11 @@ const MultitaskingButton = () => {
 
 function MyTabs() {
   return (
-    <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
+    <Tab.Navigator
+      tabBar={(props) => <MyTabBar {...props} />}
+      screenOptions={{
+        unmountOnBlur: true,
+      }}>
       <Tab.Screen name={APP} component={AppScreen} />
       <Tab.Screen
         name={MULTITASKING}
@@ -56,9 +63,21 @@ function MyTabs() {
   );
 }
 
+const AppDrawerScreen = () => (
+  <AppDrawer.Navigator
+    screenOptions={{
+      headerShown: false,
+      drawerPosition: 'right',
+      drawerType: 'front',
+    }}>
+    <AppDrawer.Screen name={MY_TABS} component={MyTabs} />
+    <AppDrawer.Screen name="Settings" component={SettingsScreen} />
+  </AppDrawer.Navigator>
+);
+
 const AppStackScreen = () => (
   <AppStack.Navigator screenOptions={{headerShown: false}}>
-    <AppStack.Screen name={MY_TABS} component={MyTabs} />
+    <AppStack.Screen name={APP_DRAWER_STACK} component={AppDrawerScreen} />
   </AppStack.Navigator>
 );
 
@@ -73,11 +92,7 @@ export function RootStackScreen() {
   const {initializing, isAuth} = useAuth();
 
   return (
-    <RootStack.Navigator
-      mode="modal"
-      screenOptions={{animationEnabled: false}}
-      // initialRouteName={EXPENSE}
-    >
+    <RootStack.Navigator mode="modal" screenOptions={{animationEnabled: false}}>
       {initializing ? (
         <RootStack.Screen name={LOADING} component={LoadingScreen} />
       ) : isAuth ? (

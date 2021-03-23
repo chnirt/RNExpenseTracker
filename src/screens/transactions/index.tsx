@@ -38,6 +38,9 @@ export function TransactionsScreen(props: ITransactionsScreen) {
 
   useEffect(() => {
     navigation.setOptions({
+      headerStyle: {
+        ...useShadow({depth: 12, color: PRIMARY_COLOR}),
+      },
       headerTitle: () => <MyText h6>Transactions</MyText>,
       headerRight: () => (
         <TouchableWithoutFeedback

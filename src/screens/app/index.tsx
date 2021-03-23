@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react';
 import {FlatList, SectionList, Text, View} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 import {IAppScreen} from './types';
 import {styles} from './styles';
 import {useAuth} from '../../context';
-import {MyButton} from '../../components';
-// import {useShadow} from '../../hooks';
-// import {PRIMARY_COLOR} from '../../constants';
+import {MyAvatar, MyButton} from '../../components';
+import {useShadow} from '../../hooks';
+import {PRIMARY_COLOR} from '../../constants';
 import {chunkArray} from '../../utils';
+import {WINDOW_WIDTH} from '../../constants';
 
 const DATA = [...Array(30).keys()]
   .map((_, i) => ({
@@ -45,30 +47,42 @@ export function AppScreen(props: IAppScreen) {
     data: item,
   }));
 
-  console.log(JSON.stringify(newArray, null, 2));
+  const handleAvatar = () => navigation.openDrawer();
 
   useEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        // ...useShadow({depth: 24, color: PRIMARY_COLOR}),
+        ...useShadow({depth: 12, color: PRIMARY_COLOR}),
       },
+      headerRight: () => (
+        <TouchableWithoutFeedback
+          style={styles.headerLeftButton}
+          onPress={handleAvatar}>
+          <MyAvatar name="Chnirt" />
+        </TouchableWithoutFeedback>
+      ),
     });
   }, []);
 
   return (
     <View style={styles.container}>
-      <SectionList
+      {/* <SectionList
+        // horizontal
         sections={newArray}
         keyExtractor={(item, index) => item + index}
         renderItem={({item}) => (
-          <View style={styles.item}>
-            <Text style={styles.title}>xxx</Text>
+          <View
+            style={{
+              backgroundColor: '#FFFFFF',
+              width: WINDOW_WIDTH / 3,
+            }}>
+            <Text style={styles.title}>{item}</Text>
           </View>
         )}
         // renderSectionHeader={({section: {title}}) => (
         //   <Text style={styles.header}>{title}</Text>
         // )}
-      />
+      /> */}
       {/* <FlatList
         data={DATA}
         renderItem={({item, index}) => {
