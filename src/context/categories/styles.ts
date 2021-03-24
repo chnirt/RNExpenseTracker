@@ -1,5 +1,5 @@
 import {create} from '../../utils';
-import {ICON_SIZE, PRIMARY_COLOR, WINDOW_WIDTH} from '../../constants';
+import {ICON_SIZE, PRIMARY_COLOR} from '../../constants';
 import {useShadow} from '../../hooks';
 
 export const styles = create({

@@ -16,36 +16,37 @@ const DATA = [...Array(30).keys()]
   .map((_, i) => ({
     id: i.toString(),
     title: 'chin' + i,
+    data: ['Pizza', 'Burger', 'Risotto'],
   }))
   .map(({title}) => title);
 
-const DATA1 = [
-  {
-    title: 'Main dishes',
-    data: ['Pizza', 'Burger', 'Risotto'],
-  },
-  {
-    title: 'Sides',
-    data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
-  },
-  {
-    title: 'Drinks',
-    data: ['Water', 'Coke', 'Beer'],
-  },
-  {
-    title: 'Desserts',
-    data: ['Cheese Cake', 'Ice Cream'],
-  },
-];
+// const DATA = [
+//   {
+//     title: 'Main dishes',
+//     data: ['Pizza', 'Burger', 'Risotto'],
+//   },
+//   {
+//     title: 'Sides',
+//     data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
+//   },
+//   {
+//     title: 'Drinks',
+//     data: ['Water', 'Coke', 'Beer'],
+//   },
+//   {
+//     title: 'Desserts',
+//     data: ['Cheese Cake', 'Ice Cream'],
+//   },
+// ];
 
 export function AppScreen(props: IAppScreen) {
   const {logout} = useAuth();
   const navigation = useNavigation();
 
-  const newArray = chunkArray(DATA, 9).map((item, i) => ({
-    title: i,
-    data: item,
-  }));
+  // const newArray = chunkArray(DATA, 9).map((item, i) => ({
+  //   title: i,
+  //   data: item,
+  // }));
 
   const handleAvatar = () => navigation.openDrawer();
 

@@ -6,11 +6,11 @@ import {ILoadingScreen} from './types';
 import {styles} from './styles';
 import {LogoSVG} from '../../assets/logo';
 import {LOGO_SIZE} from '../../constants';
-import {usePulse} from '../../animations';
+import {useFlip} from '../../animations';
 
 export function LoadingScreen(props: ILoadingScreen) {
   const navigation = useNavigation();
-  const scale = usePulse({duration: 400});
+  const flipTransform = useFlip({duration: 400});
 
   useEffect(() => {
     navigation.setOptions({
@@ -20,7 +20,7 @@ export function LoadingScreen(props: ILoadingScreen) {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={{transform: [{scale}]}}>
+      <Animated.View style={{transform: flipTransform}}>
         <LogoSVG fill="#FFFFFF" width={LOGO_SIZE} height={LOGO_SIZE} />
       </Animated.View>
     </View>

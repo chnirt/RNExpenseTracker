@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useState} from 'react';
-import {Modal, View, TouchableWithoutFeedback} from 'react-native';
+import {Modal, View, Text, TouchableWithoutFeedback} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {styles} from './styles';
@@ -7,8 +7,12 @@ import {ICategoriesContext, ICategoriesProvider} from './types';
 import {ExpenseSVG} from '../../assets/svgs';
 import {ICON_SIZE, PRIMARY_COLOR, WINDOW_WIDTH} from '../../constants';
 import {ScrollView} from 'react-native-gesture-handler';
+import {SectionList} from 'react-native';
 
-const DATA = [...Array(30).keys()].map((_, i) => i);
+const DATA = [...Array(30).keys()].map((_, i) => ({
+  title: i + 'Main dishes',
+  data: ['Pizza', 'Burger', 'Risotto'],
+}));
 
 const CategoriesContext = createContext<ICategoriesContext>({
   value: '',
@@ -40,7 +44,25 @@ export const CategoriesProvider = ({children}: ICategoriesProvider) => {
           <View style={styles.modalView}>
             <SafeAreaView>
               <View style={styles.categoriesContainer}>
-                <ScrollView
+                <SectionList
+                  horizontal
+                  sections={DATA}
+                  keyExtractor={(item, index) => item + index}
+                  renderItem={({item}) => (
+                    <View
+                      style={{
+                        backgroundColor: '#FFFFFF',
+                        width: WINDOW_WIDTH / 3,
+                      }}>
+                      <Text style={styles.title}>{item}</Text>
+                    </View>
+                  )}
+                  renderSectionHeader={({section: {title}}) => (
+                    <Text style={styles.header}>{title}</Text>
+                  )}
+                />
+
+                {/* <ScrollView
                   horizontal
                   decelerationRate={0}
                   disableIntervalMomentum={true}
@@ -57,7 +79,7 @@ export const CategoriesProvider = ({children}: ICategoriesProvider) => {
                       </View>
                     );
                   })}
-                </ScrollView>
+                </ScrollView> */}
               </View>
             </SafeAreaView>
           </View>
