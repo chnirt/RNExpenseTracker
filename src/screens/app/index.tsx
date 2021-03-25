@@ -65,10 +65,6 @@ export function AppScreen(props: IAppScreen) {
           />
         </TouchableWithoutFeedback>
       ),
-      // cardStyle: {
-      //   backgroundColor: 'transparent',
-      //   borderTopLeftRadius: 48,
-      // },
     });
   }, []);
 

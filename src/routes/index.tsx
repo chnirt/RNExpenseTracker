@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -34,6 +34,7 @@ import {useAuth} from '../context';
 import {MyCustomDrawerContent, MyTabBar} from '../components';
 
 import {styles} from './styles';
+import {useShadow} from '../hooks';
 
 const RootStack = createStackNavigator();
 const AuthStack = createStackNavigator();
@@ -68,10 +69,33 @@ function MyTabs() {
   );
 }
 
+const HomeScreen = () => (
+  <View
+    style={{
+      flex: 1,
+      backgroundColor: '#FFFFFF',
+    }}>
+    <Text>Home</Text>
+  </View>
+);
+
 const DrawersScreens = ({style}) => {
   return (
-    <Animated.View style={StyleSheet.flatten([styles.stack, style])}>
+    <Animated.View
+      style={[
+        {justifyContent: 'center'},
+        StyleSheet.flatten([styles.stack, style]),
+      ]}>
       <MyTabs />
+      <View
+        style={{
+          position: 'absolute',
+          width: 30,
+          height: '90%',
+          backgroundColor: '#FFFFFF',
+          right: -30,
+        }}
+      />
     </Animated.View>
   );
 };
