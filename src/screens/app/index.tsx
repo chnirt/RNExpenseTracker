@@ -6,9 +6,9 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {IAppScreen} from './types';
 import {styles} from './styles';
 import {useAuth} from '../../context';
-import {MyAvatar, MyButton} from '../../components';
+import {MyAvatar, MyButton, MyText} from '../../components';
 import {useShadow} from '../../hooks';
-import {PRIMARY_COLOR} from '../../constants';
+import {PRIMARY_COLOR, SCREEN_BORDER_RADIUS} from '../../constants';
 import {chunkArray} from '../../utils';
 import {WINDOW_WIDTH} from '../../constants';
 
@@ -54,7 +54,10 @@ export function AppScreen(props: IAppScreen) {
     navigation.setOptions({
       headerStyle: {
         ...useShadow({depth: 12, color: PRIMARY_COLOR}),
+        backgroundColor: 'transparent',
+        borderTopRightRadius: SCREEN_BORDER_RADIUS,
       },
+      headerTitle: () => <MyText h6>App</MyText>,
       headerRight: () => (
         <TouchableWithoutFeedback
           style={styles.headerLeftButton}

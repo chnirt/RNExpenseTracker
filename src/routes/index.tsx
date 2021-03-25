@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -20,6 +20,7 @@ import {
   APP_STACK,
   AUTH_STACK,
   PRIMARY_COLOR,
+  SCREEN_BORDER_RADIUS,
 } from '../constants';
 import {
   LoadingScreen,
@@ -32,9 +33,7 @@ import {
 } from '../screens';
 import {useAuth} from '../context';
 import {MyCustomDrawerContent, MyTabBar} from '../components';
-
 import {styles} from './styles';
-import {useShadow} from '../hooks';
 
 const RootStack = createStackNavigator();
 const AuthStack = createStackNavigator();
@@ -52,6 +51,9 @@ function MyTabs() {
       tabBar={(props) => <MyTabBar {...props} />}
       screenOptions={{
         unmountOnBlur: true,
+      }}
+      sceneContainerStyle={{
+        borderTopRightRadius: SCREEN_BORDER_RADIUS,
       }}>
       <Tab.Screen name={APP} component={AppScreen} />
       <Tab.Screen
@@ -69,31 +71,27 @@ function MyTabs() {
   );
 }
 
-const HomeScreen = () => (
-  <View
-    style={{
-      flex: 1,
-      backgroundColor: '#FFFFFF',
-    }}>
-    <Text>Home</Text>
-  </View>
-);
-
-const DrawersScreens = ({style}) => {
+const DrawersScreens = ({style, besideStyle}) => {
   return (
     <Animated.View
       style={[
-        {justifyContent: 'center'},
+        {
+          justifyContent: 'center',
+        },
         StyleSheet.flatten([styles.stack, style]),
       ]}>
       <MyTabs />
-      <View
+      <Animated.View
         style={{
           position: 'absolute',
-          width: 30,
+          width: SCREEN_BORDER_RADIUS * 2,
           height: '90%',
           backgroundColor: '#FFFFFF',
-          right: -30,
+          right: 0,
+          zIndex: -1,
+          borderTopRightRadius: SCREEN_BORDER_RADIUS,
+          borderBottomRightRadius: SCREEN_BORDER_RADIUS,
+          ...besideStyle,
         }}
       />
     </Animated.View>
@@ -109,12 +107,26 @@ const AppDrawerScreen = () => {
     inputRange: [0, 1],
     outputRange: [1, 0.8],
   });
+
   const borderRadius = Animated.interpolate(progress, {
     inputRange: [0, 1],
-    outputRange: [0, 16],
+    outputRange: [0, SCREEN_BORDER_RADIUS],
+  });
+
+  const translateX = Animated.interpolate(progress, {
+    inputRange: [0, 1],
+    outputRange: [0, SCREEN_BORDER_RADIUS * 2],
   });
 
   const animatedStyle = {borderRadius, transform: [{scale}]};
+
+  const besideAnimatedStyle = {
+    transform: [
+      {
+        translateX,
+      },
+    ],
+  };
 
   return (
     <LinearGradient
@@ -140,7 +152,13 @@ const AppDrawerScreen = () => {
           return <MyCustomDrawerContent {...props} />;
         }}>
         <AppDrawer.Screen name={MY_TABS}>
-          {(props) => <DrawersScreens {...props} style={animatedStyle} />}
+          {(props) => (
+            <DrawersScreens
+              {...props}
+              style={animatedStyle}
+              besideStyle={besideAnimatedStyle}
+            />
+          )}
         </AppDrawer.Screen>
       </AppDrawer.Navigator>
     </LinearGradient>

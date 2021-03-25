@@ -12,3 +12,5 @@ export const WINDOW_DIMENSIONS = Dimensions.get('window');
 export const WINDOW_WIDTH = WINDOW_DIMENSIONS.width;
 export const WINDOW_HEIGHT = WINDOW_DIMENSIONS.height;
 export const WINDOW_FONT_SCALE = WINDOW_DIMENSIONS.fontScale;
+
+export const SCREEN_BORDER_RADIUS = normalize(16);

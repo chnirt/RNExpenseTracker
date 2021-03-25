@@ -1,12 +1,13 @@
 import {create} from '../../utils';
-import {BOTTOM_HEIGHT, PRIMARY_COLOR} from '../../constants';
-import {useShadow} from '../../hooks';
+import {BOTTOM_HEIGHT} from '../../constants';
 
 export const styles = create({
   bottomTabContainer: {
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
-    ...useShadow({depth: 24, color: PRIMARY_COLOR}),
+
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
   },
   bottomTabButton: {
     height: BOTTOM_HEIGHT,

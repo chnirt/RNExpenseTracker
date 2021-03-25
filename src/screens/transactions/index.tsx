@@ -11,6 +11,7 @@ import {
   ICON_SIZE,
   INCOME_COLOR,
   EXPENSE_COLOR,
+  SCREEN_BORDER_RADIUS,
 } from '../../constants';
 import {useCalendar} from '../../context';
 import {MyText} from '../../components';
@@ -40,6 +41,7 @@ export function TransactionsScreen(props: ITransactionsScreen) {
     navigation.setOptions({
       headerStyle: {
         ...useShadow({depth: 12, color: PRIMARY_COLOR}),
+        borderTopRightRadius: SCREEN_BORDER_RADIUS,
       },
       headerTitle: () => <MyText h6>Transactions</MyText>,
       headerRight: () => (
