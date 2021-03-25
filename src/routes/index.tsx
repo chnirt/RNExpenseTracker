@@ -1,9 +1,10 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import Animated, {Node} from 'react-native-reanimated';
+import LinearGradient from 'react-native-linear-gradient';
 
 import {
   LOADING,
@@ -18,6 +19,7 @@ import {
   APP_DRAWER_STACK,
   APP_STACK,
   AUTH_STACK,
+  PRIMARY_COLOR,
 } from '../constants';
 import {
   LoadingScreen,
@@ -27,7 +29,6 @@ import {
   TransactionsScreen,
   CategoriesScreen,
   ExpenseScreen,
-  SettingsScreen,
 } from '../screens';
 import {useAuth} from '../context';
 import {MyCustomDrawerContent, MyTabBar} from '../components';
@@ -80,57 +81,45 @@ const AppDrawerScreen = () => {
     new Animated.Value(0),
   );
 
+  const scale = Animated.interpolate(progress, {
+    inputRange: [0, 1],
+    outputRange: [1, 0.8],
+  });
   const borderRadius = Animated.interpolate(progress, {
     inputRange: [0, 1],
     outputRange: [0, 16],
   });
 
-  const rotate = Animated.interpolate(progress, {
-    inputRange: [0, 1],
-    outputRange: ['0deg', '-5deg'],
-  });
-
-  const translateX = Animated.interpolate(progress, {
-    inputRange: [0, 1],
-    outputRange: [0, -110],
-  });
-
-  const translateY = Animated.interpolate(progress, {
-    inputRange: [0, 1],
-    outputRange: [0, 0],
-  });
-
-  const animatedStyle = {
-    borderRadius,
-    transform: [{rotate}, {translateX}, {translateY}],
-  };
+  const animatedStyle = {borderRadius, transform: [{scale}]};
 
   return (
-    <View style={styles.container}>
+    <LinearGradient
+      style={styles.container}
+      colors={[PRIMARY_COLOR, '#FFFFFF']}>
       <AppDrawer.Navigator
-        // openByDefault
         screenOptions={{
           headerShown: false,
-          overlayColor: '#00000000',
           drawerType: 'slide',
-          drawerPosition: 'left',
-          drawerStyle: styles.drawer,
-          drawerContentContainerStyle: styles.contentZIndex,
-          drawerContentStyle: styles.contentZIndex,
+          drawerPosition: 'right',
+          overlayColor: 'transparent',
+          drawerStyle: styles.drawerStyles,
+          // contentContainerStyle: {flex: 1},
+          // drawerContentOptions: {
+          //   activeBackgroundColor: 'transparent',
+          //   activeTintColor: 'white',
+          //   inactiveTintColor: 'white',
+          // },
+          sceneContainerStyle: {backgroundColor: 'transparent'},
         }}
         drawerContent={(props) => {
           setProgress(props.progress);
           return <MyCustomDrawerContent {...props} />;
         }}>
-        <AppDrawer.Screen
-          name={MY_TABS}
-          // component={MyTabs}
-        >
+        <AppDrawer.Screen name={MY_TABS}>
           {(props) => <DrawersScreens {...props} style={animatedStyle} />}
         </AppDrawer.Screen>
-        <AppDrawer.Screen name="Settings" component={SettingsScreen} />
       </AppDrawer.Navigator>
-    </View>
+    </LinearGradient>
   );
 };
 
