@@ -108,7 +108,7 @@ const AppDrawerScreen = () => {
   return (
     <View style={styles.container}>
       <AppDrawer.Navigator
-        openByDefault
+        // openByDefault
         screenOptions={{
           headerShown: false,
           overlayColor: '#00000000',

@@ -8,8 +8,6 @@ export const styles = create({
   },
   drawer: {
     backgroundColor: '#FFFFFF00',
-    // width: '50%',
-    zIndex: -999,
   },
   drawerItem: {
     width: '50%',
@@ -31,7 +29,6 @@ export const styles = create({
     ...useShadow({depth: 24, color: PRIMARY_COLOR}),
   },
   contentZIndex: {
-    position: 'absolute',
-    zIndex: -999,
+    zIndex: -1,
   },
 });
