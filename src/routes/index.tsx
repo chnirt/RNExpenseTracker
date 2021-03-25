@@ -1,7 +1,9 @@
 import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import Animated, {Node} from 'react-native-reanimated';
 
 import {
   LOADING,
@@ -28,7 +30,9 @@ import {
   SettingsScreen,
 } from '../screens';
 import {useAuth} from '../context';
-import {MyTabBar} from '../components';
+import {MyCustomDrawerContent, MyTabBar} from '../components';
+
+import {styles} from './styles';
 
 const RootStack = createStackNavigator();
 const AuthStack = createStackNavigator();
@@ -63,17 +67,72 @@ function MyTabs() {
   );
 }
 
-const AppDrawerScreen = () => (
-  <AppDrawer.Navigator
-    screenOptions={{
-      headerShown: false,
-      drawerPosition: 'right',
-      drawerType: 'front',
-    }}>
-    <AppDrawer.Screen name={MY_TABS} component={MyTabs} />
-    <AppDrawer.Screen name="Settings" component={SettingsScreen} />
-  </AppDrawer.Navigator>
-);
+const DrawersScreens = ({style}) => {
+  return (
+    <Animated.View style={StyleSheet.flatten([styles.stack, style])}>
+      <MyTabs />
+    </Animated.View>
+  );
+};
+
+const AppDrawerScreen = () => {
+  const [progress, setProgress] = React.useState<Node<number>>(
+    new Animated.Value(0),
+  );
+
+  const borderRadius = Animated.interpolate(progress, {
+    inputRange: [0, 1],
+    outputRange: [0, 16],
+  });
+
+  const rotate = Animated.interpolate(progress, {
+    inputRange: [0, 1],
+    outputRange: ['0deg', '-5deg'],
+  });
+
+  const translateX = Animated.interpolate(progress, {
+    inputRange: [0, 1],
+    outputRange: [0, -110],
+  });
+
+  const translateY = Animated.interpolate(progress, {
+    inputRange: [0, 1],
+    outputRange: [0, 0],
+  });
+
+  const animatedStyle = {
+    borderRadius,
+    transform: [{rotate}, {translateX}, {translateY}],
+  };
+
+  return (
+    <View style={styles.container}>
+      <AppDrawer.Navigator
+        openByDefault
+        screenOptions={{
+          headerShown: false,
+          overlayColor: '#00000000',
+          drawerType: 'slide',
+          drawerPosition: 'left',
+          drawerStyle: styles.drawer,
+          drawerContentContainerStyle: styles.contentZIndex,
+          drawerContentStyle: styles.contentZIndex,
+        }}
+        drawerContent={(props) => {
+          setProgress(props.progress);
+          return <MyCustomDrawerContent {...props} />;
+        }}>
+        <AppDrawer.Screen
+          name={MY_TABS}
+          // component={MyTabs}
+        >
+          {(props) => <DrawersScreens {...props} style={animatedStyle} />}
+        </AppDrawer.Screen>
+        <AppDrawer.Screen name="Settings" component={SettingsScreen} />
+      </AppDrawer.Navigator>
+    </View>
+  );
+};
 
 const AppStackScreen = () => (
   <AppStack.Navigator screenOptions={{headerShown: false}}>

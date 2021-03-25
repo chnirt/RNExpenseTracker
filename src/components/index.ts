@@ -5,3 +5,4 @@ export * from './MyText';
 export * from './MyButton';
 export * from './MyModal';
 export * from './MyAvatar';
+export * from './MyCustomDrawerContent';

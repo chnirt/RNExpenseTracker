@@ -59,9 +59,16 @@ export function AppScreen(props: IAppScreen) {
         <TouchableWithoutFeedback
           style={styles.headerLeftButton}
           onPress={handleAvatar}>
-          <MyAvatar name="Chnirt" />
+          <MyAvatar
+            name="Chnirt"
+            uri="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+          />
         </TouchableWithoutFeedback>
       ),
+      // cardStyle: {
+      //   backgroundColor: 'transparent',
+      //   borderTopLeftRadius: 48,
+      // },
     });
   }, []);
 
