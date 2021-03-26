@@ -5,26 +5,20 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {IMyCustomDrawerContent} from './types';
 import {useAuth} from '../../context';
 import {
-  CardSVG,
   CloseSVG,
   LogoutSVG,
   CurrencySVG,
   LanguageSVG,
+  MoonSVG,
 } from '../../assets/svgs';
-import {
-  ICON_SIZE,
-  PRIMARY_COLOR,
-  THIRD_COLOR,
-  WINDOW_HEIGHT,
-} from '../../constants';
-import {Pressable, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {ICON_SIZE, PRIMARY_COLOR} from '../../constants';
 import {MyText} from '../MyText';
-import {MoonSVG} from '../../assets/svgs/moon';
 
 export function MyCustomDrawerContent({
   progress,

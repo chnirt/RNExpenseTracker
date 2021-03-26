@@ -4,7 +4,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {INumberPadContext, INumberPadProvider} from './types';
 import {styles} from './styles';
-import {MyText} from '../../components';
+import {MyText} from '../../components/MyText';
 import {BackspaceSVG} from '../../assets/svgs';
 import {ICON_SIZE, THIRD_COLOR} from '../../constants';
 
