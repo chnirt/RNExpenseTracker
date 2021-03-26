@@ -31,6 +31,7 @@ import {
   TransactionsScreen,
   CategoriesScreen,
   ExpenseScreen,
+  OnboardingScreen,
 } from '../screens';
 import {useAuth} from '../context';
 import {MyCustomDrawerContent, MyTabBar} from '../components';
@@ -184,11 +185,13 @@ const AuthStackScreen = () => (
 export function RootStackScreen() {
   const {initializing, isAuth} = useAuth();
 
+  if (initializing) return <LoadingScreen />;
+
+  if (true) return <OnboardingScreen />;
+
   return (
     <RootStack.Navigator mode="modal" screenOptions={{animationEnabled: false}}>
-      {initializing ? (
-        <RootStack.Screen name={LOADING} component={LoadingScreen} />
-      ) : isAuth ? (
+      {isAuth ? (
         <RootStack.Screen
           name={APP_STACK}
           component={AppStackScreen}
