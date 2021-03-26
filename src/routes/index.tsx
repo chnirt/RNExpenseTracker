@@ -109,7 +109,19 @@ const AppDrawerScreen = () => {
     outputRange: [0, SCREEN_BORDER_RADIUS * 2],
   });
 
-  const animatedStyle = {transform: [{scale}]};
+  const rotate = Animated.interpolate(progress, {
+    inputRange: [0, 1],
+    outputRange: ['0deg', '7deg'],
+  });
+
+  const animatedStyle = {
+    transform: [
+      {scale},
+      {
+        rotate,
+      },
+    ],
+  };
 
   const besideAnimatedStyle = {
     transform: [
