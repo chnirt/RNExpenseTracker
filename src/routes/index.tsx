@@ -21,6 +21,7 @@ import {
   AUTH_STACK,
   PRIMARY_COLOR,
   SCREEN_BORDER_RADIUS,
+  THIRD_COLOR,
 } from '../constants';
 import {
   LoadingScreen,
@@ -73,24 +74,19 @@ function MyTabs() {
 
 const DrawersScreens = ({style, besideStyle}) => {
   return (
-    <Animated.View
-      style={[
-        {
-          justifyContent: 'center',
-        },
-        StyleSheet.flatten([styles.stack, style]),
-      ]}>
+    <Animated.View style={[StyleSheet.flatten([styles.stack, style])]}>
       <MyTabs />
       <Animated.View
         style={{
           position: 'absolute',
           width: SCREEN_BORDER_RADIUS * 2,
           height: '90%',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: '#FFFFFF90',
           right: 0,
           zIndex: -1,
           borderTopRightRadius: SCREEN_BORDER_RADIUS,
           borderBottomRightRadius: SCREEN_BORDER_RADIUS,
+
           ...besideStyle,
         }}
       />
@@ -105,12 +101,7 @@ const AppDrawerScreen = () => {
 
   const scale = Animated.interpolate(progress, {
     inputRange: [0, 1],
-    outputRange: [1, 0.8],
-  });
-
-  const borderRadius = Animated.interpolate(progress, {
-    inputRange: [0, 1],
-    outputRange: [0, SCREEN_BORDER_RADIUS],
+    outputRange: [1, 0.6],
   });
 
   const translateX = Animated.interpolate(progress, {
@@ -118,7 +109,7 @@ const AppDrawerScreen = () => {
     outputRange: [0, SCREEN_BORDER_RADIUS * 2],
   });
 
-  const animatedStyle = {borderRadius, transform: [{scale}]};
+  const animatedStyle = {transform: [{scale}]};
 
   const besideAnimatedStyle = {
     transform: [
@@ -139,12 +130,12 @@ const AppDrawerScreen = () => {
           drawerPosition: 'right',
           overlayColor: 'transparent',
           drawerStyle: styles.drawerStyles,
-          // contentContainerStyle: {flex: 1},
-          // drawerContentOptions: {
-          //   activeBackgroundColor: 'transparent',
-          //   activeTintColor: 'white',
-          //   inactiveTintColor: 'white',
-          // },
+          drawerContentContainerStyle: {
+            flex: 1,
+          },
+          drawerActiveTintColor: PRIMARY_COLOR,
+          drawerInactiveTintColor: THIRD_COLOR,
+          drawerActiveBackgroundColor: 'transparent',
           sceneContainerStyle: {backgroundColor: 'transparent'},
         }}
         drawerContent={(props) => {

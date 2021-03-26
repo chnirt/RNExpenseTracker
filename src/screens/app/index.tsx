@@ -54,7 +54,7 @@ export function AppScreen(props: IAppScreen) {
     navigation.setOptions({
       headerStyle: {
         ...useShadow({depth: 12, color: PRIMARY_COLOR}),
-        backgroundColor: 'transparent',
+        backgroundColor: '#FFFFFF',
         borderTopRightRadius: SCREEN_BORDER_RADIUS,
       },
       headerTitle: () => <MyText h6>App</MyText>,

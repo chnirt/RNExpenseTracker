@@ -6,6 +6,11 @@ export const styles = create({
   },
   stack: {
     flex: 1,
+    justifyContent: 'center',
   },
-  drawerStyles: {flex: 1, width: '50%', backgroundColor: 'transparent'},
+  drawerStyles: {
+    flex: 1,
+    width: '50%',
+    backgroundColor: 'transparent',
+  },
 });

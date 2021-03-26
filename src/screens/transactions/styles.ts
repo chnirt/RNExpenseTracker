@@ -5,6 +5,7 @@ import {PRIMARY_COLOR, INCOME_COLOR} from '../../constants';
 export const styles = create({
   container: {
     flex: 1,
+    backgroundColor: '#FFFFFF',
   },
   headerRight: {
     padding: 16,

@@ -1,5 +1,6 @@
 import {create} from '../../utils';
-import {BOTTOM_HEIGHT} from '../../constants';
+import {BOTTOM_HEIGHT, PRIMARY_COLOR} from '../../constants';
+import {useShadow} from '../../hooks';
 
 export const styles = create({
   bottomTabContainer: {
@@ -8,6 +9,8 @@ export const styles = create({
 
     borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
+
+    ...useShadow({depth: 12, color: PRIMARY_COLOR}),
   },
   bottomTabButton: {
     height: BOTTOM_HEIGHT,

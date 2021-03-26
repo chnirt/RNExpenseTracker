@@ -41,6 +41,7 @@ export function TransactionsScreen(props: ITransactionsScreen) {
     navigation.setOptions({
       headerStyle: {
         ...useShadow({depth: 12, color: PRIMARY_COLOR}),
+        backgroundColor: '#FFFFFF',
         borderTopRightRadius: SCREEN_BORDER_RADIUS,
       },
       headerTitle: () => <MyText h6>Transactions</MyText>,

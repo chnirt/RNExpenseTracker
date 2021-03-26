@@ -7,3 +7,6 @@ export * from './close';
 export * from './arrow';
 export * from './calendar';
 export * from './backspace';
+export * from './logout';
+export * from './currency';
+export * from './language';
