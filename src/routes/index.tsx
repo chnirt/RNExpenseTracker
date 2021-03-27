@@ -8,6 +8,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {
   LOADING,
+  ONBOARDING,
   LOGIN,
   REGISTER,
   MY_TABS,
@@ -33,7 +34,7 @@ import {
   ExpenseScreen,
   OnboardingScreen,
 } from '../screens';
-import {useAuth} from '../context';
+import {useAuth, useOnboarding} from '../context';
 import {MyCustomDrawerContent, MyTabBar} from '../components';
 import {styles} from './styles';
 
@@ -183,15 +184,20 @@ const AuthStackScreen = () => (
 );
 
 export function RootStackScreen() {
+  const {isViewed} = useOnboarding();
   const {initializing, isAuth} = useAuth();
 
   if (initializing) return <LoadingScreen />;
 
-  if (true) return <OnboardingScreen />;
-
   return (
     <RootStack.Navigator mode="modal" screenOptions={{animationEnabled: false}}>
-      {isAuth ? (
+      {!isViewed ? (
+        <RootStack.Screen
+          name={ONBOARDING}
+          component={OnboardingScreen}
+          options={{headerShown: false}}
+        />
+      ) : isAuth ? (
         <RootStack.Screen
           name={APP_STACK}
           component={AppStackScreen}

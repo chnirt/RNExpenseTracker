@@ -13,6 +13,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {
+  OnboardingProvider,
   AuthProvider,
   CalendarProvider,
   CategoriesProvider,
@@ -23,15 +24,17 @@ import {RootStackScreen} from './src/routes';
 const App = () => {
   return (
     <NavigationContainer>
-      <AuthProvider>
-        <CalendarProvider>
-          <NumberPadProvider>
-            <CategoriesProvider>
-              <RootStackScreen />
-            </CategoriesProvider>
-          </NumberPadProvider>
-        </CalendarProvider>
-      </AuthProvider>
+      <OnboardingProvider>
+        <AuthProvider>
+          <CalendarProvider>
+            <NumberPadProvider>
+              <CategoriesProvider>
+                <RootStackScreen />
+              </CategoriesProvider>
+            </NumberPadProvider>
+          </CalendarProvider>
+        </AuthProvider>
+      </OnboardingProvider>
     </NavigationContainer>
   );
 };

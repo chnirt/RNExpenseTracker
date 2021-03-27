@@ -1,4 +1,5 @@
 export const LOADING = 'loading';
+export const ONBOARDING = 'onboarding';
 
 export const AUTH_STACK = 'authStack';
 export const LOGIN = 'login';

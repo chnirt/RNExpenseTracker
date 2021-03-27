@@ -35,7 +35,7 @@ export const AuthProvider = ({children}: IAuthProvider) => {
     setIsAuth(false);
   };
 
-  const fetchToken = async () => {
+  const checkToken = async () => {
     const token = await getToken();
     setIsAuth(!!token);
     setInitializing(false);
@@ -43,7 +43,7 @@ export const AuthProvider = ({children}: IAuthProvider) => {
 
   useLayoutEffect(() => {
     setTimeout(() => {
-      fetchToken();
+      checkToken();
     }, 1000);
   }, []);
 

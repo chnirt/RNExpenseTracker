@@ -12,3 +12,4 @@ export * from './logout';
 export * from './currency';
 export * from './language';
 export * from './moon';
+export * from './onboarding';
