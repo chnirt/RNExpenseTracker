@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {StyleSheet} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -101,6 +101,8 @@ const AppDrawerScreen = () => {
     new Animated.Value(0),
   );
 
+  // const progress = useRef(new Animated.Value(0)).current;
+
   const scale = Animated.interpolate(progress, {
     inputRange: [0, 1],
     outputRange: [1, 0.6],
@@ -154,6 +156,7 @@ const AppDrawerScreen = () => {
         }}
         drawerContent={(props) => {
           setProgress(props.progress);
+
           return <MyCustomDrawerContent {...props} />;
         }}>
         <AppDrawer.Screen name={MY_TABS}>

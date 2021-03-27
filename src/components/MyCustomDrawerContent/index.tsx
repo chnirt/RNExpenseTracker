@@ -2,7 +2,7 @@ import React from 'react';
 import {
   DrawerContentScrollView,
   DrawerItem,
-  DrawerItemList,
+  // DrawerItemList,
 } from '@react-navigation/drawer';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {View} from 'react-native';
