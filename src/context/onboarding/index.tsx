@@ -31,7 +31,7 @@ export const OnboardingProvider = ({children}: IOnboardingProvider) => {
   }, []);
 
   const skip = () => {
-    setViewedOnboarding('true');
+    // setViewedOnboarding('true');
   };
 
   return (

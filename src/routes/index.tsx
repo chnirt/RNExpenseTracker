@@ -105,7 +105,7 @@ const AppDrawerScreen = () => {
 
   const scale = Animated.interpolate(progress, {
     inputRange: [0, 1],
-    outputRange: [1, 0.6],
+    outputRange: [1, 0.7],
   });
 
   const translateX = Animated.interpolate(progress, {
@@ -179,28 +179,27 @@ const AppStackScreen = () => (
   </AppStack.Navigator>
 );
 
-const AuthStackScreen = () => (
-  <AuthStack.Navigator>
-    <AuthStack.Screen name={LOGIN} component={LoginScreen} />
-    <AuthStack.Screen name={REGISTER} component={RegisterScreen} />
-  </AuthStack.Navigator>
-);
-
-export function RootStackScreen() {
+const AuthStackScreen = () => {
   const {isViewed} = useOnboarding();
+
+  return (
+    <AuthStack.Navigator>
+      {!isViewed && (
+        <AuthStack.Screen name={ONBOARDING} component={OnboardingScreen} />
+      )}
+      <AuthStack.Screen name={LOGIN} component={LoginScreen} />
+      <AuthStack.Screen name={REGISTER} component={RegisterScreen} />
+    </AuthStack.Navigator>
+  );
+};
+export function RootStackScreen() {
   const {initializing, isAuth} = useAuth();
 
   if (initializing) return <LoadingScreen />;
 
   return (
     <RootStack.Navigator mode="modal" screenOptions={{animationEnabled: false}}>
-      {!isViewed ? (
-        <RootStack.Screen
-          name={ONBOARDING}
-          component={OnboardingScreen}
-          options={{headerShown: false}}
-        />
-      ) : isAuth ? (
+      {isAuth ? (
         <RootStack.Screen
           name={APP_STACK}
           component={AppStackScreen}

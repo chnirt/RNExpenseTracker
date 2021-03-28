@@ -1,13 +1,12 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View, FlatList, Animated, Pressable} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/core';
 
 import {IOnboardingScreen} from './types';
 import {styles} from './styles';
 import {
-  AUTH_STACK,
+  LOGIN,
   PRIMARY_COLOR,
   WINDOW_HEIGHT,
   WINDOW_WIDTH,
@@ -65,9 +64,15 @@ export function OnboardingScreen(props: IOnboardingScreen) {
 
   const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current;
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
+
   const handleSkip = () => {
     skip();
-    navigation.navigate(AUTH_STACK);
+    navigation.navigate(LOGIN);
   };
 
   const OnboardingItem = ({item}) => {
@@ -100,9 +105,7 @@ export function OnboardingScreen(props: IOnboardingScreen) {
   };
 
   return (
-    <LinearGradient
-      style={styles.container}
-      colors={[PRIMARY_COLOR, '#FFFFFF']}>
+    <View style={styles.container}>
       <SafeAreaView style={{flex: 1}}>
         <View
           style={{
@@ -110,7 +113,7 @@ export function OnboardingScreen(props: IOnboardingScreen) {
             alignItems: 'flex-end',
           }}>
           <Pressable style={{padding: 16}} onPress={handleSkip}>
-            <MyText button bold color="#FFFFFF">
+            <MyText button bold color={PRIMARY_COLOR}>
               Skip
             </MyText>
           </Pressable>
@@ -182,6 +185,6 @@ export function OnboardingScreen(props: IOnboardingScreen) {
           })}
         </View>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 }

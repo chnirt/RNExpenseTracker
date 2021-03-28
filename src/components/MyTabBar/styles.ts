@@ -6,7 +6,6 @@ export const styles = create({
     flexDirection: 'row',
     backgroundColor: '#FFFFFF',
 
-    borderBottomLeftRadius: 16,
     borderBottomRightRadius: 16,
 
     shadowColor: PRIMARY_COLOR,
