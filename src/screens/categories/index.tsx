@@ -1,12 +1,36 @@
 import React, {useEffect} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, SectionList, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 import {ICategoriesScreen} from './types';
 import {styles} from './styles';
-import {CloseSVG} from '../../assets/svgs';
-import {DISABLED_COLOR, ICON_SIZE} from '../../constants';
+import {CardSVG, CloseSVG} from '../../assets/svgs';
+import {
+  DISABLED_COLOR,
+  ICON_SIZE,
+  PRIMARY_COLOR,
+  WINDOW_WIDTH,
+} from '../../constants';
+
+const DATA = [
+  {
+    title: 'Main dishes',
+    data: [...Array(9).keys()].map((_, i) => i),
+  },
+  {
+    title: 'Sides',
+    data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
+  },
+  {
+    title: 'Drinks',
+    data: ['Water', 'Coke', 'Beer'],
+  },
+  {
+    title: 'Desserts',
+    data: ['Cheese Cake', 'Ice Cream'],
+  },
+];
 
 export function CategoriesScreen(props: ICategoriesScreen) {
   const navigation = useNavigation();
@@ -31,7 +55,52 @@ export function CategoriesScreen(props: ICategoriesScreen) {
 
   return (
     <View style={styles.container}>
-      <Text>CategoriesScreen</Text>
+      {
+        <FlatList
+          data={DATA}
+          keyExtractor={(item, index) => item.title}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={
+            {
+              // borderColor: 'red',
+              // borderWidth: 1,
+            }
+          }
+          pagingEnabled
+          renderItem={({item}) => {
+            return (
+              <View
+                style={{
+                  width: WINDOW_WIDTH,
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+
+                  // borderColor: 'blue',
+                  // borderWidth: 1,
+                }}>
+                {item.data.map((element) => {
+                  return (
+                    <View
+                      style={{
+                        width: WINDOW_WIDTH / 3,
+                        height: WINDOW_WIDTH / 3,
+
+                        justifyContent: 'center',
+                        alignItems: 'center',
+
+                        // borderColor: 'red',
+                        // borderWidth: 1,
+                      }}>
+                      <CardSVG fill={PRIMARY_COLOR} width={24} height={24} />
+                    </View>
+                  );
+                })}
+              </View>
+            );
+          }}
+        />
+      }
     </View>
   );
 }
