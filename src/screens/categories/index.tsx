@@ -6,6 +6,7 @@ import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {ICategoriesScreen} from './types';
 import {styles} from './styles';
 import {CardSVG, CloseSVG} from '../../assets/svgs';
+import {useShadow} from '../../hooks';
 import {
   DISABLED_COLOR,
   ICON_SIZE,
@@ -75,9 +76,6 @@ export function CategoriesScreen(props: ICategoriesScreen) {
                   width: WINDOW_WIDTH,
                   flexDirection: 'row',
                   flexWrap: 'wrap',
-
-                  // borderColor: 'blue',
-                  // borderWidth: 1,
                 }}>
                 {item.data.map((element) => {
                   return (
@@ -92,7 +90,20 @@ export function CategoriesScreen(props: ICategoriesScreen) {
                         // borderColor: 'red',
                         // borderWidth: 1,
                       }}>
-                      <CardSVG fill={PRIMARY_COLOR} width={24} height={24} />
+                      <View
+                        style={{
+                          width: WINDOW_WIDTH / 5,
+                          height: WINDOW_WIDTH / 5,
+                          backgroundColor: 'white',
+                          borderRadius: WINDOW_WIDTH / 10,
+                          margin: 15,
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          ...useShadow({depth: 12, color: PRIMARY_COLOR}),
+                        }}>
+                        <CardSVG fill={PRIMARY_COLOR} width={24} height={24} />
+                      </View>
+                      <Text style={{color: '#8395A2'}}>Category</Text>
                     </View>
                   );
                 })}
