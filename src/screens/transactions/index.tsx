@@ -9,58 +9,87 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryContainer,
+  VictoryLabel,
+  VictoryPie,
+  VictoryTheme,
+} from 'victory-native';
 
 import {ITransactionsScreen} from './types';
 import {styles} from './styles';
-import {CalendarSVG, ExpenseSVG} from '../../assets/svgs';
+import {CalendarSVG, CardSVG} from '../../assets/svgs';
 import {
   PRIMARY_COLOR,
   ICON_SIZE,
   INCOME_COLOR,
   EXPENSE_COLOR,
   SCREEN_BORDER_RADIUS,
+  THIRD_COLOR,
 } from '../../constants';
 import {useCalendar} from '../../context';
 import {MyText} from '../../components';
 import {useShadow} from '../../hooks';
 import {randomNumber} from '../../utils';
 
-const SPACING = 10;
-const AVATAR_SIZE = 30;
-const ITEM_SIZE = AVATAR_SIZE + SPACING * 3;
-
-// const DATA = [...Array(30).keys()].map((_, i) => {
-//   return {
-//     id: i.toString(),
-//     title: 'Buy car',
-//     date: '15/05/2021',
-//     price: randomNumber(-100000, 100000),
-//   };
-// });
-const DATA = [...Array(5).keys()].map((_) => {
-  return {
-    title: '10/10/2020',
-    data: [...Array(10).keys()].map((_, i) => {
-      return {
-        id: i.toString(),
-        title: 'Buy car',
-        date: '15/05/2021',
-        price: randomNumber(-100000, 100000),
-      };
-    }),
-  };
-});
+const DATA = [
+  {
+    title: 'Today',
+    data: ['Pizza', 'Burger', 'Risotto', 'Risotto', 'Risotto', 'Risotto'],
+  },
+  {
+    title: 'Yesterday',
+    data: [
+      'French Fries',
+      'Onion Rings',
+      'Fried Shrimps',
+      'Fried Shrimps',
+      'Fried Shrimps',
+      'Fried Shrimps',
+      'Fried Shrimps',
+      'Fried Shrimps',
+      'Fried Shrimps',
+      'Fried Shrimps',
+    ],
+  },
+  {
+    title: '29/03/2021',
+    data: [
+      'Water',
+      'Coke',
+      'Beer',
+      'Beer',
+      'Beer',
+      'Beer',
+      'Beer',
+      'Beer',
+      'Beer',
+      'Beer',
+    ],
+  },
+  {
+    title: '30/03/2021',
+    data: ['Cheese Cake', 'Ice Cream'],
+  },
+];
+const DATA1 = [
+  {x: 1, y: 2, label: 'one'},
+  {x: 2, y: 3, label: 'two'},
+  {x: 3, y: 5, label: 'three'},
+];
 
 export function TransactionsScreen(props: ITransactionsScreen) {
   const navigation = useNavigation();
   const {handleOpen} = useCalendar();
-
-  const scrollY = useRef(new Animated.Value(0)).current;
+  const [selectedCategoryName, setSelectedCategoryName] = useState(
+    DATA1[0].label,
+  );
 
   useEffect(() => {
     navigation.setOptions({
       headerStyle: {
-        ...useShadow({depth: 12, color: PRIMARY_COLOR}),
         backgroundColor: '#FFFFFF',
         borderTopRightRadius: SCREEN_BORDER_RADIUS,
       },
@@ -79,100 +108,134 @@ export function TransactionsScreen(props: ITransactionsScreen) {
     });
   }, []);
 
-  const renderItem = ({item, index}) => {
-    const isPositive = item.price > 0;
-
-    const scaleInputRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 2)];
-
-    const scale = scrollY.interpolate({
-      inputRange: scaleInputRange,
-      outputRange: [1, 1, 1, 0],
-    });
-
-    const opacityInputRange = [
-      -1,
-      0,
-      ITEM_SIZE * index,
-      ITEM_SIZE * (index + 1),
-    ];
-
-    const opacity = scrollY.interpolate({
-      inputRange: opacityInputRange,
-      outputRange: [1, 1, 1, 0],
-    });
-
-    const formatPrice = item.price.toLocaleString('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
-    });
-
-    return (
-      <Animated.View
-        style={[
+  return (
+    <View style={{flex: 1}}>
+      <VictoryPie
+        data={DATA1}
+        animate={
           {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: SPACING,
-            marginBottom: SPACING,
-            backgroundColor: '#FFFFFF',
+            // easing: 'expIn',
+            // duration: 2000,
+            // onLoad: {
+            //   duration: 1500,
+            //   before: () => ({_y: 0}),
+            //   after: (datum) => ({_y: datum._y}),
+            // },
+          }
+        }
+        categories={{x: ['dogs', 'cats', 'mice']}}
+        colorScale={['tomato', 'orange', 'gold', 'cyan', 'navy']}
+        // containerComponent={<VictoryContainer responsive={false} />}
+        // cornerRadius={({datum}) => datum.y * 5}
+        // innerRadius={({datum}) => datum.y * 20}
+        // labels={({datum}) => datum.y}
+        // labelComponent={<VictoryLabel angle={45} />}
+        // labelPosition={({index}) => (index ? 'centroid' : 'startAngle')}
+        // labelPlacement={({index}) => (index ? 'parallel' : 'vertical')}
+        events={[
+          {
+            target: 'data',
+            eventHandlers: {
+              onPressIn: () => {
+                return [
+                  {
+                    target: 'data',
+                    mutation: ({style, index, ...rest}) => {
+                      const categoryName = DATA1[index].label;
+                      setSelectedCategoryName((prevState) =>
+                        prevState === categoryName ? '' : categoryName,
+                      );
+                      // return style.fill === '#c43a31'
+                      //   ? null
+                      //   : {style: {fill: '#c43a31'}};
+                    },
+                  },
+                  // {
+                  //   target: 'labels',
+                  //   mutation: ({text}) => {
+                  //     console.log('!23', text);
 
-            ...useShadow({depth: 5, color: PRIMARY_COLOR}),
+                  //     return text === 'clicked' ? null : {text: 'clicked'};
+                  //   },
+                  // },
+                ];
+              },
+            },
           },
-          {opacity, transform: [{scale}]},
-        ]}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
+        ]}
+        radius={({datum}) => (selectedCategoryName === datum.label ? 120 : 100)}
+      />
+      <SectionList
+        style={{
+          backgroundColor: '#FFFFFF',
+        }}
+        sections={DATA}
+        keyExtractor={(item, index) => item + index}
+        showsVerticalScrollIndicator={false}
+        renderSectionHeader={({section: {title}}) => (
           <View
             style={{
-              width: AVATAR_SIZE,
-              aspectRatio: 1,
-              borderRadius: AVATAR_SIZE / 2,
-              justifyContent: 'center',
-              alignItems: 'center',
-
-              borderColor: PRIMARY_COLOR,
-              borderWidth: 1,
+              backgroundColor: '#FFFFFF',
+              padding: 16,
             }}>
-            <ExpenseSVG
-              fill={PRIMARY_COLOR}
-              width={ICON_SIZE * 0.75}
-              height={ICON_SIZE * 0.75}
-            />
+            <Text style={{color: THIRD_COLOR, fontWeight: 'bold'}}>
+              {title}
+            </Text>
           </View>
-          <MyText style={{marginLeft: 16}} s1>
-            {item.title}
-          </MyText>
-        </View>
-
-        <MyText s2 color={isPositive ? INCOME_COLOR : EXPENSE_COLOR}>
-          {formatPrice}
-        </MyText>
-      </Animated.View>
-    );
-  };
-
-  return (
-    <View style={styles.container}>
-      <Animated.SectionList
-        sections={DATA}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          // padding: SPACING,
-          paddingTop: StatusBar.currentHeight || 42,
-        }}
-        // onScroll={Animated.event(
-        //   [{nativeEvent: {contentOffset: {y: scrollY}}}],
-        //   {useNativeDriver: true},
-        // )}
-        renderItem={renderItem}
-        renderSectionHeader={({section: {title}}) => (
-          <MyText style={styles.header}>{title}</MyText>
         )}
+        renderItem={({item}) => {
+          const amount = randomNumber(-100000, 100000);
+
+          const isPositive = amount > 0;
+
+          // const formatPrice = amount.toLocaleString('vi-VN', {
+          //   style: 'currency',
+          //   currency: 'VND',
+          // });
+
+          const formatPrice = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+          }).format(amount); // '$100.00'
+
+          return (
+            <View
+              style={{
+                flex: 1,
+                padding: 16,
+                flexDirection: 'row',
+              }}>
+              <View style={{marginRight: 16}}>
+                <CardSVG
+                  fill={PRIMARY_COLOR}
+                  width={ICON_SIZE}
+                  height={ICON_SIZE}
+                />
+              </View>
+              <View style={{flex: 1}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text style={{}}>{item}</Text>
+                  <Text
+                    style={{color: isPositive ? INCOME_COLOR : EXPENSE_COLOR}}>
+                    {formatPrice}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                  }}>
+                  <Text style={{color: THIRD_COLOR}}>Card **6789</Text>
+                  <Text style={{color: THIRD_COLOR}}>11:47 AM</Text>
+                </View>
+              </View>
+            </View>
+          );
+        }}
       />
     </View>
   );

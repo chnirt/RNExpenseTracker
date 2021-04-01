@@ -15,6 +15,8 @@ https://undraw.co/
 
 - App bars: top: https://material.io/components/app-bars-top#theming
 
+- Format currency: https://www.samanthaming.com/tidbits/30-how-to-format-currency-in-es6/
+
 # Install pod and run simulator in MacOS M1:
 
 https://dev.to/craftzdog/how-to-get-a-react-native-project-to-work-on-m1-mac-4i4a

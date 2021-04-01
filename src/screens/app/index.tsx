@@ -16,54 +16,12 @@ import {
   WINDOW_WIDTH,
 } from '../../constants';
 import {randomNumber} from '../../utils';
-import {CardSVG} from '../../assets/svgs';
 
 const OVERFLOW_HEIGHT = 700;
 const SPACING = 10;
 const ITEM_WIDTH = WINDOW_WIDTH * 0.8;
 const ITEM_HEIGHT = ITEM_WIDTH * 1.7;
 const VISIBLE_ITEMS = 3;
-
-const DATA = [
-  {
-    title: 'Today',
-    data: ['Pizza', 'Burger', 'Risotto', 'Risotto', 'Risotto', 'Risotto'],
-  },
-  {
-    title: 'Yesterday',
-    data: [
-      'French Fries',
-      'Onion Rings',
-      'Fried Shrimps',
-      'Fried Shrimps',
-      'Fried Shrimps',
-      'Fried Shrimps',
-      'Fried Shrimps',
-      'Fried Shrimps',
-      'Fried Shrimps',
-      'Fried Shrimps',
-    ],
-  },
-  {
-    title: '29/03/2021',
-    data: [
-      'Water',
-      'Coke',
-      'Beer',
-      'Beer',
-      'Beer',
-      'Beer',
-      'Beer',
-      'Beer',
-      'Beer',
-      'Beer',
-    ],
-  },
-  {
-    title: '30/03/2021',
-    data: ['Cheese Cake', 'Ice Cream'],
-  },
-];
 
 const DATA1 = [
   {
@@ -183,77 +141,6 @@ export function AppScreen(props: IAppScreen) {
           );
         }}
       /> */}
-
-      <SectionList
-        sections={DATA}
-        keyExtractor={(item, index) => item + index}
-        showsVerticalScrollIndicator={false}
-        renderSectionHeader={({section: {title}}) => (
-          <View
-            style={{
-              // borderColor: 'red',
-              // borderWidth: 1,
-
-              backgroundColor: '#FFFFFF',
-              padding: 16,
-            }}>
-            <Text style={{color: THIRD_COLOR, fontWeight: 'bold'}}>
-              {title}
-            </Text>
-          </View>
-        )}
-        renderItem={({item}) => {
-          const amount = randomNumber(-100000, 100000);
-
-          const isPositive = amount > 0;
-
-          const formatPrice = amount.toLocaleString('vi-VN', {
-            style: 'currency',
-            currency: 'VND',
-          });
-
-          return (
-            <View
-              style={{
-                // borderColor: 'red',
-                // borderWidth: 1,
-
-                flex: 1,
-                padding: 16,
-                flexDirection: 'row',
-              }}>
-              <View style={{marginRight: 16}}>
-                <CardSVG
-                  fill={PRIMARY_COLOR}
-                  width={ICON_SIZE}
-                  height={ICON_SIZE}
-                />
-              </View>
-              <View style={{flex: 1}}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={{}}>{item}</Text>
-                  <Text
-                    style={{color: isPositive ? INCOME_COLOR : EXPENSE_COLOR}}>
-                    {formatPrice}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                  }}>
-                  <Text style={{color: THIRD_COLOR}}>Card **6789</Text>
-                  <Text style={{color: THIRD_COLOR}}>11:47 AM</Text>
-                </View>
-              </View>
-            </View>
-          );
-        }}
-      />
     </View>
   );
 }
