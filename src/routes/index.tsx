@@ -51,7 +51,7 @@ const MultitaskingButton = () => {
 function MyTabs() {
   return (
     <Tab.Navigator
-      initialRouteName={TRANSACTIONS}
+      // initialRouteName={TRANSACTIONS}
       tabBar={(props) => <MyTabBar {...props} />}
       screenOptions={{
         unmountOnBlur: true,
@@ -156,7 +156,7 @@ const AppDrawerScreen = () => {
           sceneContainerStyle: {backgroundColor: 'transparent'},
         }}
         drawerContent={(props) => {
-          // setProgress(props.progress);
+          setProgress(props.progress);
 
           return <MyCustomDrawerContent {...props} />;
         }}>

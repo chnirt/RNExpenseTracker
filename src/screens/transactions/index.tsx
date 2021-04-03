@@ -109,7 +109,7 @@ export function TransactionsScreen(props: ITransactionsScreen) {
   }, []);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: '#FFFFFF'}}>
       <VictoryPie
         data={DATA1}
         animate={
@@ -163,7 +163,7 @@ export function TransactionsScreen(props: ITransactionsScreen) {
             },
           },
         ]}
-        radius={({datum}) => (selectedCategoryName === datum.label ? 120 : 100)}
+        radius={({datum}) => (selectedCategoryName === datum.label ? 150 : 140)}
       />
       <SectionList
         style={{

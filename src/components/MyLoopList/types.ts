@@ -1,1 +1,3 @@
-export interface IMyLoopList {}
+export interface IMyLoopList {
+  data: any[];
+}
