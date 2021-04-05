@@ -1,5 +1,13 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {View, FlatList, Image, Animated, Dimensions} from 'react-native';
+import {
+  View,
+  FlatList,
+  Image,
+  Animated,
+  Dimensions,
+  Text,
+  ImageBackground,
+} from 'react-native';
 import {
   FlingGestureHandler,
   Directions,
@@ -8,13 +16,15 @@ import {
 
 import {IMyLoopList} from './types';
 import {styles} from './styles';
+import {VisaSVG} from '../../assets/svgs';
 
 const {width} = Dimensions.get('screen');
 
 const SPACING = 10;
-const ITEM_WIDTH = width * 0.76;
-const ITEM_HEIGHT = ITEM_WIDTH * 1.7;
+const ITEM_WIDTH = width * 0.8;
+const ITEM_HEIGHT = ITEM_WIDTH * 0.65;
 const VISIBLE_ITEMS = 3;
+const LOGO_SIZE = 70;
 
 export function MyLoopList(props: IMyLoopList) {
   const {data: newData} = props;
@@ -22,10 +32,13 @@ export function MyLoopList(props: IMyLoopList) {
   const scrollXAnimated = useRef(new Animated.Value(0)).current;
   const [data, setData] = useState(newData);
   const [index, setIndex] = useState(0);
-  const setActiveIndex = useCallback((activeIndex) => {
-    scrollXIndex.setValue(activeIndex);
-    setIndex(activeIndex);
-  });
+  const setActiveIndex = useCallback(
+    (activeIndex) => {
+      scrollXIndex.setValue(activeIndex);
+      setIndex(activeIndex);
+    },
+    [index],
+  );
 
   useEffect(() => {
     Animated.spring(scrollXAnimated, {
@@ -74,7 +87,7 @@ export function MyLoopList(props: IMyLoopList) {
           contentContainerStyle={{
             flex: 1,
             justifyContent: 'center',
-            padding: SPACING * 2,
+            paddingHorizontal: SPACING * 2,
             marginTop: 50,
           }}
           scrollEnabled={false}
@@ -115,14 +128,71 @@ export function MyLoopList(props: IMyLoopList) {
                     {scale},
                   ],
                 }}>
-                <Image
+                <ImageBackground
                   source={{uri: item.poster}}
                   style={{
                     width: ITEM_WIDTH,
                     height: ITEM_HEIGHT,
-                    borderRadius: 14,
+                    padding: 16,
                   }}
-                />
+                  imageStyle={{borderRadius: 16}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    <Text
+                      style={{
+                        color: '#FFFFFF',
+                        fontSize: 18,
+                        fontWeight: 'bold',
+                      }}>
+                      SC BANK
+                    </Text>
+                    <VisaSVG
+                      fill="#FFFFFF"
+                      width={LOGO_SIZE}
+                      height={LOGO_SIZE}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    {[...Array(3).keys()].map((element) => (
+                      <Text
+                        style={{
+                          color: '#FFFFFF',
+                          fontSize: 28,
+                          fontWeight: 'bold',
+                          textAlign: 'center',
+                        }}>
+                        ****
+                      </Text>
+                    ))}
+                    <Text
+                      style={{
+                        color: '#FFFFFF',
+                        fontSize: 28,
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                      }}>
+                      6789
+                    </Text>
+                  </View>
+                  <View>
+                    <Text
+                      style={{
+                        color: '#FFFFFF',
+                        fontSize: 24,
+                        fontWeight: 'bold',
+                      }}>
+                      Trinh Chin Chin
+                    </Text>
+                  </View>
+                </ImageBackground>
               </Animated.View>
             );
           }}

@@ -13,3 +13,4 @@ export * from './currency';
 export * from './language';
 export * from './moon';
 export * from './onboarding';
+export * from './visa';

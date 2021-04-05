@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import {StyleSheet} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -7,7 +7,6 @@ import Animated, {Node} from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {
-  LOADING,
   ONBOARDING,
   LOGIN,
   REGISTER,
@@ -51,7 +50,6 @@ const MultitaskingButton = () => {
 function MyTabs() {
   return (
     <Tab.Navigator
-      // initialRouteName={TRANSACTIONS}
       tabBar={(props) => <MyTabBar {...props} />}
       screenOptions={{
         unmountOnBlur: true,
