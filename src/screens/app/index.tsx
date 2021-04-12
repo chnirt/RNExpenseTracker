@@ -1,12 +1,21 @@
 import React, {useEffect} from 'react';
-import {View} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/core';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 import {IAppScreen} from './types';
 import {styles} from './styles';
-import {MyAvatar, MyText, MyLoopList} from '../../components';
-import {SCREEN_BORDER_RADIUS} from '../../constants';
+import {MyAvatar, MyText, MyLoopList, MyDonut} from '../../components';
+import {CardSVG} from '../../assets/svgs';
+
+import {
+  PRIMARY_COLOR,
+  ICON_SIZE,
+  INCOME_COLOR,
+  EXPENSE_COLOR,
+  SCREEN_BORDER_RADIUS,
+  THIRD_COLOR,
+} from '../../constants';
 
 const DATA = [
   {
@@ -60,6 +69,21 @@ const DATA = [
   // },
 ];
 
+const activities = [
+  {
+    uuid: '34wsf',
+    logo: '',
+    title: 'Food and drink',
+    percent: 76,
+  },
+  {
+    uuid: '34w3f',
+    logo: '',
+    title: 'Fashion',
+    percent: 24,
+  },
+];
+
 export function AppScreen(props: IAppScreen) {
   const navigation = useNavigation();
 
@@ -85,9 +109,67 @@ export function AppScreen(props: IAppScreen) {
     });
   }, []);
 
+  const renderItem = ({item}: any) => {
+    return (
+      <View style={styles.itemContent}>
+        <MyDonut percentage={item?.percent} color={'tomato'}>
+          <CardSVG fill={PRIMARY_COLOR} width={ICON_SIZE} height={ICON_SIZE} />
+        </MyDonut>
+        {/* <View style={styles.activityIcon}>
+          <CardSVG fill={PRIMARY_COLOR} width={ICON_SIZE} height={ICON_SIZE} />
+        </View> */}
+        <Text style={styles.activityName}>{item?.title}</Text>
+        <Text style={styles.activityPercent}>{`${item?.percent}%`}</Text>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <MyLoopList data={DATA} />
+      <View style={styles.listActivity}>
+        <View style={styles.titleContent}>
+          <Text style={styles.titleLabel}>List Activity</Text>
+          <Text style={styles.moreLabel}>See all</Text>
+        </View>
+        <View style={styles.activityTime}>
+          <View style={{paddingHorizontal: 10}}>
+            <Text>Mon</Text>
+            <Text>19</Text>
+          </View>
+          <View style={{paddingHorizontal: 10}}>
+            <Text>Tue</Text>
+            <Text>20</Text>
+          </View>
+          <View style={{paddingHorizontal: 10}}>
+            <Text>Wed</Text>
+            <Text>21</Text>
+          </View>
+          <View style={{paddingHorizontal: 10}}>
+            <Text>Thu</Text>
+            <Text>22</Text>
+          </View>
+          <View style={{paddingHorizontal: 10}}>
+            <Text>Fri</Text>
+            <Text>23</Text>
+          </View>
+          <View style={{paddingHorizontal: 10}}>
+            <Text>Sat</Text>
+            <Text>24</Text>
+          </View>
+          <View style={{paddingHorizontal: 10}}>
+            <Text>Sun</Text>
+            <Text>25</Text>
+          </View>
+        </View>
+        <View style={styles.listContent}>
+          <FlatList
+            data={activities || []}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.uuid}
+          />
+        </View>
+      </View>
     </View>
   );
 }

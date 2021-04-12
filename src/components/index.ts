@@ -7,3 +7,4 @@ export * from './MyModal';
 export * from './MyAvatar';
 export * from './MyCustomDrawerContent';
 export * from './MyLoopList';
+export * from './MyDonut';
